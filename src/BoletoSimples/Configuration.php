@@ -11,18 +11,16 @@ class Configuration {
   public $application_secret = null;
   public $access_token = null;
 
-  function __construct() {
-    $this->environment = ($_ENV['BOLETOSIMPLES_ENV'] === null ? 'sandbox' : $_ENV['BOLETOSIMPLES_ENV']);
-    $this->application_id = $_ENV['BOLETOSIMPLES_APP_ID'];
-    $this->application_secret = $_ENV['BOLETOSIMPLES_APP_SECRET'];
-    $this->access_token = $_ENV['BOLETOSIMPLES_ACCESS_TOKEN'];
-  }
-
-  function configure($params) {
+  function __construct($params = array()) {
     $this->environment = $params['environment'];
     $this->application_id = $params['application_id'];
     $this->application_secret = $params['application_secret'];
     $this->access_token = $params['access_token'];
+
+    if(!$this->environment) $this->environment = ($_ENV['BOLETOSIMPLES_ENV'] === null ? 'sandbox' : $_ENV['BOLETOSIMPLES_ENV']);
+    if(!$this->application_id) $this->application_id = $_ENV['BOLETOSIMPLES_APP_ID'];
+    if(!$this->application_secret) $this->application_secret = $_ENV['BOLETOSIMPLES_APP_SECRET'];
+    if(!$this->access_token) $this->access_token = $_ENV['BOLETOSIMPLES_ACCESS_TOKEN'];
   }
 
   function userAgent() {

@@ -33,13 +33,13 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase {
     $this->assertTrue ($this->subject->hasAccessToken());
   }
   public function testConfiguration() {
-    BoletoSimples::configure(array(
+    BoletoSimples::configure([
       "environment" => 'production',
       "application_id" => 'app-id',
       "application_secret" => 'app-secret',
       "access_token" => 'access-token'
-    ));
-    $this->subject = BoletoSimples::configuration();
+    ]);
+    $this->subject = BoletoSimples::$configuration;
     $this->assertEquals ($this->subject->environment, 'production');
     $this->assertEquals ($this->subject->application_id, 'app-id');
     $this->assertEquals ($this->subject->application_secret, 'app-secret');

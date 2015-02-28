@@ -7,18 +7,14 @@ require_once dirname (__FILE__) . '/BoletoSimples/Resources/BaseResource.php';
 require_once dirname (__FILE__) . '/BoletoSimples/Resources/BankBillet.php';
 
 class BoletoSimples {
-  private $configuration = null;
+  public static $configuration = null;
 
-  function configure($params) {
-    $this->configuration = new BoletoSimples\Configuration;
-    $this->configuration->configure($params);
-    return true;
+  static function configure($params = array()) {
+    BoletoSimples::$configuration = new BoletoSimples\Configuration($params);
   }
 
-  function configuration() {
-    return $this->configuration;
-  }
 }
 
+BoletoSimples::configure();
 
 ?>
