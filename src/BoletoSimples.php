@@ -1,7 +1,6 @@
 <?php
 
 require_once 'vendor/autoload.php';
-use ActiveResource\ActiveResource;
 
 require_once dirname (__FILE__) . '/BoletoSimples/Resources/BaseResource.php';
 require_once dirname (__FILE__) . '/BoletoSimples/Resources/BankBillet.php';
