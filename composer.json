@@ -1,0 +1,32 @@
+{
+	"name": "boletosimples/boletosimples",
+	"type": "library",
+  "version": "0.0.1",
+	"description": "A PHP client library for easily accessing Boleto Simples API.",
+	"keywords": ["boleto","simples","boletosimples","ecommerce"],
+	"homepage": "http://api.boletosimples.com.br",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Rafael Lima",
+			"email": "contato@rafael.adm.br",
+			"homepage": "http://rafael.adm.br/"
+		}
+	],
+  "support": {
+    "email": "suporte@boletosimples.com.br",
+    "issues": "http://github.com/BoletoSimples/boletosimples-php/issues",
+    "sources": "https://github.com/BoletoSimples/boletosimples-php"
+  },
+	"require": {
+		"phpactiveresource/phpactiveresource": "1.0.0-stable"
+	},
+  "require-dev": {
+    "phpunit/phpunit": "4.5.*"
+  },
+	"autoload": {
+		"psr-0": {
+			"BoletoSimples": "src/"
+		}
+	}
+}
