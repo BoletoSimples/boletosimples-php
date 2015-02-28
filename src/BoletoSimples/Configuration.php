@@ -7,7 +7,6 @@ const VERSION = "0.0.1";
 class Configuration {
   private $environments_uri = array('sandbox' => 'https://sandbox.boletosimples.com.br/api/v1', 'production' => 'https://boletosimples.com.br/api/v1');
   public $environment = null;
-  public $base_uri = null;
   public $application_id = null;
   public $application_secret = null;
   public $access_token = null;
@@ -17,7 +16,6 @@ class Configuration {
     $this->application_id = $_ENV['BOLETOSIMPLES_APP_ID'];
     $this->application_secret = $_ENV['BOLETOSIMPLES_APP_SECRET'];
     $this->access_token = $_ENV['BOLETOSIMPLES_ACCESS_TOKEN'];
-    $this->setBaseUri();
   }
 
   function configure($params) {
@@ -25,7 +23,6 @@ class Configuration {
     $this->application_id = $params['application_id'];
     $this->application_secret = $params['application_secret'];
     $this->access_token = $params['access_token'];
-    $this->setBaseUri();
   }
 
   function userAgent() {
@@ -36,8 +33,8 @@ class Configuration {
     return $this->access_token != null;
   }
 
-  private function setBaseUri() {
-    $this->base_uri = $this->environments_uri[$this->environment];
+  function baseUri() {
+    return $this->environments_uri[$this->environment];
   }
 
 }

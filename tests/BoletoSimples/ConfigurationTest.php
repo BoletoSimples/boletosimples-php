@@ -9,10 +9,10 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase {
     $_ENV['BOLETOSIMPLES_ACCESS_TOKEN'] = null;
     $this->subject = new BoletoSimples\Configuration();
     $this->assertEquals ($this->subject->environment, 'sandbox');
-    $this->assertEquals ($this->subject->base_uri, 'https://sandbox.boletosimples.com.br/api/v1');
     $this->assertNull ($this->subject->application_id);
     $this->assertNull ($this->subject->application_secret);
     $this->assertNull ($this->subject->access_token);
+    $this->assertEquals ($this->subject->baseUri(), 'https://sandbox.boletosimples.com.br/api/v1');
     $this->assertFalse ($this->subject->hasAccessToken());
 	}
   public function testUserAgent() {
@@ -26,10 +26,10 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase {
     $_ENV['BOLETOSIMPLES_ACCESS_TOKEN'] = 'access-token';
     $this->subject = new BoletoSimples\Configuration();
     $this->assertEquals ($this->subject->environment, 'production');
-    $this->assertEquals ($this->subject->base_uri, 'https://boletosimples.com.br/api/v1');
     $this->assertEquals ($this->subject->application_id, 'app-id');
     $this->assertEquals ($this->subject->application_secret, 'app-secret');
     $this->assertEquals ($this->subject->access_token, 'access-token');
+    $this->assertEquals ($this->subject->baseUri(), 'https://boletosimples.com.br/api/v1');
     $this->assertTrue ($this->subject->hasAccessToken());
   }
   public function testConfiguration() {
@@ -41,10 +41,10 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase {
     ));
     $this->subject = BoletoSimples::configuration();
     $this->assertEquals ($this->subject->environment, 'production');
-    $this->assertEquals ($this->subject->base_uri, 'https://boletosimples.com.br/api/v1');
     $this->assertEquals ($this->subject->application_id, 'app-id');
     $this->assertEquals ($this->subject->application_secret, 'app-secret');
     $this->assertEquals ($this->subject->access_token, 'access-token');
+    $this->assertEquals ($this->subject->baseUri(), 'https://boletosimples.com.br/api/v1');
     $this->assertTrue ($this->subject->hasAccessToken());
   }
 }
