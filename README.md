@@ -1,8 +1,12 @@
 # Boleto Simples PHP
 
 [![Build Status](http://img.shields.io/travis/BoletoSimples/boletosimples-php.svg)][travis]
+[![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/BoletoSimples/boletosimples-php.svg)][scrutinizer]
+[![Scrutinizer Code Coverage](https://img.shields.io/scrutinizer/coverage/g/BoletoSimples/boletosimples-php.svg)][scrutinizer_coverage]
 
 [travis]: http://travis-ci.org/BoletoSimples/boletosimples-php
+[scrutinizer]: https://scrutinizer-ci.com/g/BoletoSimples/boletosimples-php/
+[scrutinizer_coverage]: https://scrutinizer-ci.com/g/BoletoSimples/boletosimples-php/
 
 Essa biblioteca é um conjunto de classes em PHP para acessar informações da sua conta no [Boleto Simples](http://boletosimples.com.br) através da [API](http://api.boletosimples.com.br).
 
