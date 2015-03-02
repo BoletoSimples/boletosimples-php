@@ -12,15 +12,10 @@ class Configuration {
   public $access_token = null;
 
   function __construct($params = array()) {
-    $this->environment = $params['environment'];
-    $this->application_id = $params['application_id'];
-    $this->application_secret = $params['application_secret'];
-    $this->access_token = $params['access_token'];
-
-    if(!$this->environment) $this->environment = ($_ENV['BOLETOSIMPLES_ENV'] === null ? 'sandbox' : $_ENV['BOLETOSIMPLES_ENV']);
-    if(!$this->application_id) $this->application_id = $_ENV['BOLETOSIMPLES_APP_ID'];
-    if(!$this->application_secret) $this->application_secret = $_ENV['BOLETOSIMPLES_APP_SECRET'];
-    if(!$this->access_token) $this->access_token = $_ENV['BOLETOSIMPLES_ACCESS_TOKEN'];
+    $this->environment = isset($params['environment']) ? $params['environment'] : (isset($_ENV['BOLETOSIMPLES_ENV']) ? $_ENV['BOLETOSIMPLES_ENV'] : 'sandbox');
+    $this->application_id =  isset($params['application_id']) ? $params['application_id'] : (isset($_ENV['BOLETOSIMPLES_ENV']) ? $_ENV['BOLETOSIMPLES_APP_ID'] : null);
+    $this->application_secret =  isset($params['application_secret']) ? $params['application_secret'] : (isset($_ENV['BOLETOSIMPLES_APP_SECRET']) ? $_ENV['BOLETOSIMPLES_APP_SECRET'] : null);
+    $this->access_token =  isset($params['access_token']) ? $params['access_token'] : (isset($_ENV['BOLETOSIMPLES_ACCESS_TOKEN']) ? $_ENV['BOLETOSIMPLES_ACCESS_TOKEN'] : null);
   }
 
   function userAgent() {

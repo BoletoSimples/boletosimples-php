@@ -73,9 +73,6 @@ class BaseResource {
 		$word = preg_replace ('/([^aeiouy]|qu)ys$/', '\1ies', $word);
 		$word = preg_replace ('/(?:([^f])fe|([lr])f)s$/', '\1\2ves', $word);
 		$word = preg_replace ('/ieses$/', 'ies', $word);
-		if (isset ($this->pleural_corrections[$word])) {
-			return $this->pleural_corrections[$word];
-		}
 		return $word;
 	}
 
