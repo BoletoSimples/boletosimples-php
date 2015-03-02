@@ -14,16 +14,16 @@ class BaseResource {
 	/**
 	 * The data of the current object, accessed via the anonymous get/set methods.
 	 */
-	private $_data = array ();
+	private $_data = array();
 
 	/**
 	 * Constructor method.
 	 */
-	function __construct ($data = array ()) {
+	function __construct($data = array()) {
 		$this->_data = $data;
 		// Allow class-defined element name or use class name if not defined
-		$this->element_name = $this->element_name ? $this->element_name : strtolower (get_class ($this));
-		$this->element_name_plural = $this->pluralize ($this->element_name);
+		$this->element_name = $this->element_name ? $this->element_name : strtolower(get_class($this));
+		$this->element_name_plural = $this->pluralize($this->element_name);
 
 		// Detect for namespaces, and take just the class name
 		if (stripos($this->element_name, '\\'))
@@ -39,12 +39,12 @@ class BaseResource {
    */
   function configure() {
     $config = \BoletoSimples::$configuration;
-    if(!$config) {
+    if (!$config) {
     	return;
     }
 
     $oauth2 = new Oauth2Subscriber();
-    if($config->access_token) {
+    if ($config->access_token) {
     	$oauth2->setAccessToken($config->access_token);
     }
 
@@ -63,22 +63,22 @@ class BaseResource {
 	/**
 	 * Pluralize the element name.
 	 */
-	function pluralize ($word) {
+	function pluralize($word) {
 		$word .= 's';
-		$word = preg_replace ('/(x|ch|sh|ss])s$/', '\1es', $word);
-		$word = preg_replace ('/ss$/', 'ses', $word);
-		$word = preg_replace ('/([ti])ums$/', '\1a', $word);
-		$word = preg_replace ('/sises$/', 'ses', $word);
-		$word = preg_replace ('/([^aeiouy]|qu)ys$/', '\1ies', $word);
-		$word = preg_replace ('/(?:([^f])fe|([lr])f)s$/', '\1\2ves', $word);
-		$word = preg_replace ('/ieses$/', 'ies', $word);
+		$word = preg_replace('/(x|ch|sh|ss])s$/', '\1es', $word);
+		$word = preg_replace('/ss$/', 'ses', $word);
+		$word = preg_replace('/([ti])ums$/', '\1a', $word);
+		$word = preg_replace('/sises$/', 'ses', $word);
+		$word = preg_replace('/([^aeiouy]|qu)ys$/', '\1ies', $word);
+		$word = preg_replace('/(?:([^f])fe|([lr])f)s$/', '\1\2ves', $word);
+		$word = preg_replace('/ieses$/', 'ies', $word);
 		return $word;
 	}
 
 	/**
 	 * Getter for internal object data.
 	 */
-	function __get ($k) {
+	function __get($k) {
 		if (isset ($this->_data[$k])) {
 			return $this->_data[$k];
 		}
@@ -88,7 +88,7 @@ class BaseResource {
 	/**
 	 * Setter for internal object data.
 	 */
-	function __set ($k, $v) {
+	function __set($k, $v) {
 		if (isset ($this->_data[$k])) {
 			$this->_data[$k] = $v;
 			return;
@@ -99,8 +99,8 @@ class BaseResource {
 	/**
 	 * Quick setter for chaining methods.
 	 */
-	function set ($k, $v = false) {
-		if (! $v && is_array ($k)) {
+	function set($k, $v = false) {
+		if (!$v && is_array($k)) {
 			foreach ($k as $key => $value) {
 				$this->_data[$key] = $value;
 			}
