@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0b9f0a7a8bafeca1c475dfb9ac9fca87",
+    "hash": "b0fe700737c9b000c70087077542d961",
     "packages": [
         {
             "name": "commerceguys/guzzle-oauth2-plugin",
@@ -49,16 +49,16 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "5.0.0",
+            "version": "5.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "28b51e11237f25cdb0efaea8e45af26007831aa9"
+                "reference": "475b29ccd411f2fa8a408e64576418728c032cfa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/28b51e11237f25cdb0efaea8e45af26007831aa9",
-                "reference": "28b51e11237f25cdb0efaea8e45af26007831aa9",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/475b29ccd411f2fa8a408e64576418728c032cfa",
+                "reference": "475b29ccd411f2fa8a408e64576418728c032cfa",
                 "shasum": ""
             },
             "require": {
@@ -73,7 +73,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-ring": "5.0-dev"
+                    "dev-master": "5.0-dev"
                 }
             },
             "autoload": {
@@ -103,7 +103,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2014-10-13 03:05:51"
+            "time": "2015-01-28 01:03:29"
         },
         {
             "name": "guzzlehttp/ringphp",

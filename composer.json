@@ -19,7 +19,7 @@
     "sources": "https://github.com/BoletoSimples/boletosimples-php"
   },
 	"require": {
-		"guzzlehttp/guzzle": "5.0",
+		"guzzlehttp/guzzle": "5.2.0",
     "commerceguys/guzzle-oauth2-plugin": "dev-master"
 	},
   "require-dev": {
