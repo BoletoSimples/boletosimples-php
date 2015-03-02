@@ -1,5 +1,5 @@
 <?php
-require_once dirname (__FILE__) . '/../testHelper.php';
+require_once dirname (__FILE__) . '/../TestHelper.php';
 
 class ConfigurationTest extends PHPUnit_Framework_TestCase {
 	public function testDefaults () {
