@@ -95,18 +95,4 @@ class BaseResource {
     $word = preg_replace('/ieses$/', 'ies', $word);
     return $word;
   }
-
-  /**
-   * Quick setter for chaining methods.
-   */
-  private function set($k, $v = false) {
-    if (!$v && is_array($k)) {
-      foreach ($k as $key => $value) {
-        $this->_data[$key] = $value;
-      }
-    } else {
-      $this->_data[$k] = $v;
-    }
-    return $this;
-  }
 }
