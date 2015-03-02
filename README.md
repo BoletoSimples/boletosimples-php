@@ -1,5 +1,9 @@
 # Boleto Simples PHP
 
+[![Build Status](http://img.shields.io/travis/BoletoSimples/boletosimples-php.svg)][travis]
+
+[travis]: http://travis-ci.org/BoletoSimples/boletosimples-php
+
 Essa biblioteca é um conjunto de classes em PHP para acessar informações da sua conta no [Boleto Simples](http://boletosimples.com.br) através da [API](http://api.boletosimples.com.br).
 
 Todas as classes são herdadas do PHP ActiveResouce. Veja a documentação do [PHP ActiveResouce](https://github.com/jbroadway/phpactiveresource) para mais informações.
