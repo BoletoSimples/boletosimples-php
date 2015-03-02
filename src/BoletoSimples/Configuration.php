@@ -12,10 +12,10 @@ class Configuration {
   public $access_token = null;
 
   public function __construct($params = array()) {
-    $this->environment = isset($params['environment']) ? $params['environment'] : (isset($_ENV['BOLETOSIMPLES_ENV']) ? $_ENV['BOLETOSIMPLES_ENV'] : 'sandbox');
-    $this->application_id = isset($params['application_id']) ? $params['application_id'] : (isset($_ENV['BOLETOSIMPLES_ENV']) ? $_ENV['BOLETOSIMPLES_APP_ID'] : null);
-    $this->application_secret = isset($params['application_secret']) ? $params['application_secret'] : (isset($_ENV['BOLETOSIMPLES_APP_SECRET']) ? $_ENV['BOLETOSIMPLES_APP_SECRET'] : null);
-    $this->access_token = isset($params['access_token']) ? $params['access_token'] : (isset($_ENV['BOLETOSIMPLES_ACCESS_TOKEN']) ? $_ENV['BOLETOSIMPLES_ACCESS_TOKEN'] : null);
+    $this->environment = isset($params['environment']) ? $params['environment'] : (getenv('BOLETOSIMPLES_ENV') ? getenv('BOLETOSIMPLES_ENV') : 'sandbox');
+    $this->application_id = isset($params['application_id']) ? $params['application_id'] : (getenv('BOLETOSIMPLES_APP_ID') ? getenv('BOLETOSIMPLES_APP_ID') : null);
+    $this->application_secret = isset($params['application_secret']) ? $params['application_secret'] : (getenv('BOLETOSIMPLES_APP_SECRET') ? getenv('BOLETOSIMPLES_APP_SECRET') : null);
+    $this->access_token = isset($params['access_token']) ? $params['access_token'] : (getenv('BOLETOSIMPLES_ACCESS_TOKEN') ? getenv('BOLETOSIMPLES_ACCESS_TOKEN') : null);
   }
 
   public function userAgent() {

@@ -3,10 +3,10 @@ require_once dirname (__FILE__) . '/../TestHelper.php';
 
 class ConfigurationTest extends PHPUnit_Framework_TestCase {
 	public function testDefaults () {
-    $_ENV['BOLETOSIMPLES_ENV'] = null;
-    $_ENV['BOLETOSIMPLES_APP_ID'] = null;
-    $_ENV['BOLETOSIMPLES_APP_SECRET'] = null;
-    $_ENV['BOLETOSIMPLES_ACCESS_TOKEN'] = null;
+    putenv('BOLETOSIMPLES_ENV');
+    putenv('BOLETOSIMPLES_APP_ID');
+    putenv('BOLETOSIMPLES_APP_SECRET');
+    putenv('BOLETOSIMPLES_ACCESS_TOKEN');
     $this->subject = new BoletoSimples\Configuration();
     $this->assertEquals ($this->subject->environment, 'sandbox');
     $this->assertNull ($this->subject->application_id);
@@ -20,10 +20,10 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals ($this->subject->userAgent(), "BoletoSimples PHP Client v0.0.1 (contato@boletosimples.com.br)");
   }
   public function testEnvironmentVariables() {
-    $_ENV['BOLETOSIMPLES_ENV'] = 'production';
-    $_ENV['BOLETOSIMPLES_APP_ID'] = 'app-id';
-    $_ENV['BOLETOSIMPLES_APP_SECRET'] = 'app-secret';
-    $_ENV['BOLETOSIMPLES_ACCESS_TOKEN'] = 'access-token';
+    putenv('BOLETOSIMPLES_ENV=production');
+    putenv('BOLETOSIMPLES_APP_ID=app-id');
+    putenv('BOLETOSIMPLES_APP_SECRET=app-secret');
+    putenv('BOLETOSIMPLES_ACCESS_TOKEN=access-token');
     $this->subject = new BoletoSimples\Configuration();
     $this->assertEquals ($this->subject->environment, 'production');
     $this->assertEquals ($this->subject->application_id, 'app-id');
