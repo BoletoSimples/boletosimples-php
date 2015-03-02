@@ -39,10 +39,14 @@ class BaseResource {
    */
   function configure() {
     $config = \BoletoSimples::$configuration;
-    if(!$config) return;
+    if(!$config) {
+    	return;
+    }
 
     $oauth2 = new Oauth2Subscriber();
-    if($config->access_token) $oauth2->setAccessToken($config->access_token);
+    if($config->access_token) {
+    	$oauth2->setAccessToken($config->access_token);
+    }
 
     $this->client = new Client([
       'base_url' => $config->baseUri(),
