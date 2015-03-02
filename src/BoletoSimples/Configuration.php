@@ -5,7 +5,7 @@ namespace BoletoSimples;
 const VERSION = "0.0.1";
 
 class Configuration {
-  private $environments_uri = array('sandbox' => 'https://sandbox.boletosimples.com.br/api/v1', 'production' => 'https://boletosimples.com.br/api/v1');
+  private $environments_uri = array('sandbox' => 'https://sandbox.boletosimples.com.br/api/v1/', 'production' => 'https://boletosimples.com.br/api/v1/');
   public $environment = null;
   public $application_id = null;
   public $application_secret = null;

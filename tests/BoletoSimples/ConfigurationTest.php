@@ -11,7 +11,7 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase {
     $this->assertNull ($this->subject->application_id);
     $this->assertNull ($this->subject->application_secret);
     $this->assertNull ($this->subject->access_token);
-    $this->assertEquals ($this->subject->baseUri(), 'https://sandbox.boletosimples.com.br/api/v1');
+    $this->assertEquals ($this->subject->baseUri(), 'https://sandbox.boletosimples.com.br/api/v1/');
     $this->assertFalse ($this->subject->hasAccessToken());
 	}
   public function testUserAgent() {
@@ -28,7 +28,7 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals ($this->subject->application_id, 'app-id');
     $this->assertEquals ($this->subject->application_secret, 'app-secret');
     $this->assertEquals ($this->subject->access_token, 'access-token');
-    $this->assertEquals ($this->subject->baseUri(), 'https://boletosimples.com.br/api/v1');
+    $this->assertEquals ($this->subject->baseUri(), 'https://boletosimples.com.br/api/v1/');
     $this->assertTrue ($this->subject->hasAccessToken());
   }
   public function testConfiguration() {
@@ -43,7 +43,7 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals ($this->subject->application_id, 'app-id');
     $this->assertEquals ($this->subject->application_secret, 'app-secret');
     $this->assertEquals ($this->subject->access_token, 'access-token');
-    $this->assertEquals ($this->subject->baseUri(), 'https://boletosimples.com.br/api/v1');
+    $this->assertEquals ($this->subject->baseUri(), 'https://boletosimples.com.br/api/v1/');
     $this->assertTrue ($this->subject->hasAccessToken());
   }
 }
