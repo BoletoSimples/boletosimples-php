@@ -3,9 +3,13 @@ php:
   - 5.4
   - 5.5
   - 5.6
+script: phpunit --coverage-clover=coverage.clover
 branches:
   only:
     - master
 before_script:
-    - wget http://getcomposer.org/composer.phar
-    - php composer.phar install
+  - wget http://getcomposer.org/composer.phar
+  - php composer.phar install
+after_script:
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
