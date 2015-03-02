@@ -16,11 +16,6 @@ class BaseResource {
 	 */
 	private $_data = array ();
 
-  /**
-   * The Oauth2Subscriber object
-   */
-  private $_oauth2 = null;
-
 	/**
 	 * Constructor method.
 	 */
