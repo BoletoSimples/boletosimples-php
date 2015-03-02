@@ -3,7 +3,7 @@
 class BoletoSimples {
   public static $configuration = null;
 
-  static function configure($params = array()) {
+  static public function configure($params = array()) {
     BoletoSimples::$configuration = new BoletoSimples\Configuration($params);
   }
 

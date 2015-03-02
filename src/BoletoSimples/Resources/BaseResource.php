@@ -19,7 +19,7 @@ class BaseResource {
   /**
    * Constructor method.
    */
-  function __construct($data = array()) {
+  public function __construct($data = array()) {
     $this->_data = $data;
     // Allow class-defined element name or use class name if not defined
     $this->element_name = $this->element_name ? $this->element_name : strtolower(get_class($this));
@@ -37,7 +37,7 @@ class BaseResource {
   /**
    * Configure the GuzzleHttp\Client with default options.
    */
-  function configure() {
+  public function configure() {
     $config = \BoletoSimples::$configuration;
     if (!$config) {
       return;
@@ -61,9 +61,30 @@ class BaseResource {
   }
 
   /**
+   * Getter for internal object data.
+   */
+  public function __get($k) {
+    if (isset ($this->_data[$k])) {
+      return $this->_data[$k];
+    }
+    return $this->{$k};
+  }
+
+  /**
+   * Setter for internal object data.
+   */
+  public function __set($k, $v) {
+    if (isset ($this->_data[$k])) {
+      $this->_data[$k] = $v;
+      return;
+    }
+    $this->{$k} = $v;
+  }
+
+  /**
    * Pluralize the element name.
    */
-  function pluralize($word) {
+  private function pluralize($word) {
     $word .= 's';
     $word = preg_replace('/(x|ch|sh|ss])s$/', '\1es', $word);
     $word = preg_replace('/ss$/', 'ses', $word);
@@ -76,30 +97,9 @@ class BaseResource {
   }
 
   /**
-   * Getter for internal object data.
-   */
-  function __get($k) {
-    if (isset ($this->_data[$k])) {
-      return $this->_data[$k];
-    }
-    return $this->{$k};
-  }
-
-  /**
-   * Setter for internal object data.
-   */
-  function __set($k, $v) {
-    if (isset ($this->_data[$k])) {
-      $this->_data[$k] = $v;
-      return;
-    }
-    $this->{$k} = $v;
-  }
-
-  /**
    * Quick setter for chaining methods.
    */
-  function set($k, $v = false) {
+  private function set($k, $v = false) {
     if (!$v && is_array($k)) {
       foreach ($k as $key => $value) {
         $this->_data[$key] = $value;
