@@ -34,5 +34,3 @@ class BankBilletTest extends PHPUnit_Framework_TestCase {
   //   ));
   // }
 }
-
-?>

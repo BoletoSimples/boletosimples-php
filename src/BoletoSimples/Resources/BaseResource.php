@@ -110,5 +110,3 @@ class BaseResource {
     return $this;
   }
 }
-
-?>

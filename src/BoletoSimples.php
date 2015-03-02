@@ -15,5 +15,3 @@ class BoletoSimples {
 }
 
 BoletoSimples::configure();
-
-?>
