@@ -106,19 +106,8 @@ class BaseResource {
   }
 
   public function _find() {
-    $action = 'find';
-    $method = self::methodFor($action);
-    $path = $this->element_name_plural . "/". $this->id;
-    $request = $this->client->createRequest($method, $path, ['headers' => ['Content-Type'=> 'application/json'], 'exceptions' => false]);
-    $response = $this->client->send($request);
-
-    if($response->getStatusCode() == self::statusCodeFor($action)) {
-      $this->_attributes = $response->json();
-      return $this;
-    } else {
-      $this->response_errors = $response->json()['errors'];
-      return false;
-    }
+    $this->_request('find');
+    return $this;
   }
 
   public static function create($attributes = array()) {
@@ -130,11 +119,20 @@ class BaseResource {
 
   public function save() {
     $action = $this->isNew() ? 'create' : 'update';
+    return $this->_request($action);
+  }
+
+  private function _request($action) {
     $method = self::methodFor($action);
     $path = $this->isNew() ? $this->element_name_plural : $this->element_name_plural . "/". $this->_attributes['id'];
-    $attributes = [$this->element_name => $this->_attributes];
 
-    $request = $this->client->createRequest($method, $path, ['headers' => ['Content-Type'=> 'application/json'], 'json' => $attributes, 'exceptions' => false]);
+    $options = ['headers' => ['Content-Type'=> 'application/json'], 'exceptions' => false];
+    if($method == 'POST') {
+      $attributes = [$this->element_name => $this->_attributes];
+      $options = array_merge($options, ['json' => $attributes]);
+    }
+
+    $request = $this->client->createRequest($method, $path, $options);
     $response = $this->client->send($request);
 
     if($response->getStatusCode() == self::statusCodeFor($action)) {
