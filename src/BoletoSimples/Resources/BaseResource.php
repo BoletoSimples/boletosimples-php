@@ -106,8 +106,11 @@ class BaseResource {
   }
 
   public function _find() {
-    $this->_request('find');
-    return $this;
+    if($this->_request('find')) {
+      return $this;
+    } else {
+      throw new \Exception("Couldn't find " . get_called_class() . " with 'id'=". $this->id);
+    }
   }
 
   public static function create($attributes = array()) {
@@ -139,7 +142,9 @@ class BaseResource {
       $this->_attributes = $response->json();
       return true;
     } else {
-      $this->response_errors = $response->json()['errors'];
+      if(isset($response->json()['errors'])) {
+        $this->response_errors = $response->json()['errors'];
+      }
       return false;
     }
   }
