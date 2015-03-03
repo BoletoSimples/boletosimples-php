@@ -7,22 +7,38 @@ use CommerceGuys\Guzzle\Oauth2\Oauth2Subscriber;
 
 class BaseResource {
   /**
+   * The data of the current object, accessed via the anonymous get/set methods.
+   */
+  private $_data = array();
+
+  /**
+   * Element name used in path of member requests
+   */
+  private $element_name = null;
+
+  /**
+   * Element name in plural used in path of collection requests
+   */
+  private $element_name_plural = null;
+
+  /**
    * The GuzzleHttp\Client object
    */
   public $client = null;
 
   /**
-   * The data of the current object, accessed via the anonymous get/set methods.
+   * Array with all errors returned from last request.
    */
-  private $_data = array();
+  public $response_errors = array();
 
   /**
    * Constructor method.
    */
   public function __construct($data = array()) {
     $this->_data = $data;
+
     // Allow class-defined element name or use class name if not defined
-    $this->element_name = $this->element_name ? $this->element_name : strtolower(get_class($this));
+    $this->element_name = $this->element_name ? $this->element_name : $this->underscorize(get_class($this));
     $this->element_name_plural = $this->pluralize($this->element_name);
 
     // Detect for namespaces, and take just the class name
@@ -60,6 +76,63 @@ class BaseResource {
     ]);
   }
 
+  public static function methodFor($action) {
+    return array(
+      'create' => 'POST',
+      'update' => 'PUT',
+      'find' => 'GET',
+      'destroy' => 'DELETE',
+      'new' => 'GET'
+    )[$action];
+  }
+
+  public static function statusCodeFor($action) {
+    return array(
+      'create' => 201,
+      'update' => 200,
+      'find' => 200,
+      'destroy' => 200,
+      'new' => 200
+    )[$action];
+  }
+
+  public static function create($attributes = array()) {
+    $class = get_called_class();
+    $object = new $class($attributes);
+    $object->save();
+    return $object;
+  }
+
+  public function save() {
+    $action = $this->isNew() ? 'create' : 'update';
+    $method = self::methodFor($action);
+    $path = $this->isNew() ? $this->element_name_plural : $this->element_name_plural . "/". $this->_data['id'];
+    $attributes = [$this->element_name => $this->_data];
+
+    $request = $this->client->createRequest($method, $path, ['headers' => ['Content-Type'=> 'application/json'], 'json' => $attributes, 'exceptions' => false]);
+    $response = $this->client->send($request);
+
+    if($response->getStatusCode() == self::statusCodeFor($action)) {
+      $this->_data = $response->json();
+      return true;
+    } else {
+      $this->response_errors = $response->json()['errors'];
+      return false;
+    }
+  }
+
+  public function attributes() {
+    return $this->_data;
+  }
+
+  public function isNew() {
+    return !isset($this->_data['id']) || $this->_data['id'] == null;
+  }
+
+  public function isPersisted() {
+    return !$this->isNew();
+  }
+
   /**
    * Getter for internal object data.
    */
@@ -95,4 +168,19 @@ class BaseResource {
     $word = preg_replace('/ieses$/', 'ies', $word);
     return $word;
   }
+
+  /**
+   * Undescorize the element name.
+   */
+  private function underscorize($word){
+    $word = preg_replace('/[\'"]/', '', $word);
+    $word = preg_replace('/[^a-zA-Z0-9]+/', '_', $word);
+    $word = preg_replace('/([A-Z\d]+)([A-Z][a-z])/', '\1_\2', $word);
+    $word = preg_replace('/([a-z\d])([A-Z])/', '\1_\2', $word);
+    $word = trim($word, '_');
+    $word = strtolower($word);
+    $word = str_replace('boleto_simples_','', $word);
+    return $word;
+  }
+
 }

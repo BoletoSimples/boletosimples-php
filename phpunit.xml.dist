@@ -12,4 +12,9 @@
             <directory suffix=".php">src/</directory>
         </whitelist>
     </filter>
+
+    <listeners>
+      <listener class="VcrSecurityListener" file="tests/listeners/VcrSecurityListener.php"/>
+      <listener class="PHPUnit_Util_Log_VCR" file="vendor/php-vcr/phpunit-testlistener-vcr/PHPUnit/Util/Log/VCR.php" />
+    </listeners>
 </phpunit>
