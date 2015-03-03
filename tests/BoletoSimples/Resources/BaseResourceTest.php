@@ -39,4 +39,11 @@ class BaseResourceTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals (ExampleResource::methodFor('destroy'), 'DELETE');
     $this->assertEquals (ExampleResource::methodFor('new'), 'GET');
   }
+  /**
+   * @expectedException     Exception
+   * @expectedExceptionMessage Couldn't find ExampleResource without an ID.
+   */
+  public function testFindWithoutParams () {
+    ExampleResource::find('');
+  }
 }

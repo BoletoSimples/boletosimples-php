@@ -96,6 +96,31 @@ class BaseResource {
     )[$action];
   }
 
+  public static function find($id) {
+    if(!$id) {
+      throw new \Exception("Couldn't find " . get_called_class() . " without an ID.");
+    }
+    $class = get_called_class();
+    $object = new $class(['id' => $id]);
+    return $object->_find();
+  }
+
+  public function _find() {
+    $action = 'find';
+    $method = self::methodFor($action);
+    $path = $this->element_name_plural . "/". $this->id;
+    $request = $this->client->createRequest($method, $path, ['headers' => ['Content-Type'=> 'application/json'], 'exceptions' => false]);
+    $response = $this->client->send($request);
+
+    if($response->getStatusCode() == self::statusCodeFor($action)) {
+      $this->_attributes = $response->json();
+      return $this;
+    } else {
+      $this->response_errors = $response->json()['errors'];
+      return false;
+    }
+  }
+
   public static function create($attributes = array()) {
     $class = get_called_class();
     $object = new $class($attributes);

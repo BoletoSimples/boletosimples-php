@@ -1,6 +1,7 @@
 <?php
 
 class BankBilletTest extends PHPUnit_Framework_TestCase {
+  private static $bank_billet_id;
   /**
    * @before
    */
@@ -64,6 +65,7 @@ class BankBilletTest extends PHPUnit_Framework_TestCase {
       'customer_zipcode' => '12312-123',
       'notification_url' => 'http://example.com.br/notify'
     ));
+    self::$bank_billet_id = $bank_billet->id;
 
     $this->assertTrue($bank_billet instanceof \BoletoSimples\BankBillet);
     $this->assertTrue ($bank_billet->isPersisted());
@@ -101,4 +103,15 @@ class BankBilletTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals ($bank_billet->response_errors, array());
     $this->assertEquals (array_keys($bank_billet->attributes()), ["id","expire_at","paid_at","description","status","shorten_url","customer_person_type","customer_person_name","customer_cnpj_cpf","customer_address","customer_state","customer_neighborhood","customer_zipcode","customer_address_number","customer_address_complement","customer_phone_number","customer_email","notification_url","send_email_on_creation","created_via_api","customer_city_name","paid_amount","amount"]);
   }
+
+  /**
+   * @vcr bank_billets/find/success
+   */
+  public function testFindSuccess() {
+    $bank_billet = BoletoSimples\BankBillet::find(self::$bank_billet_id);
+    $this->assertTrue($bank_billet instanceof \BoletoSimples\BankBillet);
+    $this->assertTrue ($bank_billet->isPersisted());
+    $this->assertEquals (array_keys($bank_billet->attributes()), ["id","expire_at","paid_at","description","status","shorten_url","customer_person_type","customer_person_name","customer_cnpj_cpf","customer_address","customer_state","customer_neighborhood","customer_zipcode","customer_address_number","customer_address_complement","customer_phone_number","customer_email","notification_url","send_email_on_creation","created_via_api","customer_city_name","paid_amount","amount"]);
+  }
+
 }
