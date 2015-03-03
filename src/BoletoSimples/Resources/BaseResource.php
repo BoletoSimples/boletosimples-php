@@ -7,9 +7,9 @@ use CommerceGuys\Guzzle\Oauth2\Oauth2Subscriber;
 
 class BaseResource {
   /**
-   * The data of the current object, accessed via the anonymous get/set methods.
+   * The attributes of the current object, accessed via the anonymous get/set methods.
    */
-  private $_data = array();
+  private $_attributes = array();
 
   /**
    * Element name used in path of member requests
@@ -34,8 +34,8 @@ class BaseResource {
   /**
    * Constructor method.
    */
-  public function __construct($data = array()) {
-    $this->_data = $data;
+  public function __construct($attributes = array()) {
+    $this->_attributes = $attributes;
 
     // Allow class-defined element name or use class name if not defined
     $this->element_name = $this->element_name ? $this->element_name : $this->underscorize(get_class($this));
@@ -106,14 +106,14 @@ class BaseResource {
   public function save() {
     $action = $this->isNew() ? 'create' : 'update';
     $method = self::methodFor($action);
-    $path = $this->isNew() ? $this->element_name_plural : $this->element_name_plural . "/". $this->_data['id'];
-    $attributes = [$this->element_name => $this->_data];
+    $path = $this->isNew() ? $this->element_name_plural : $this->element_name_plural . "/". $this->_attributes['id'];
+    $attributes = [$this->element_name => $this->_attributes];
 
     $request = $this->client->createRequest($method, $path, ['headers' => ['Content-Type'=> 'application/json'], 'json' => $attributes, 'exceptions' => false]);
     $response = $this->client->send($request);
 
     if($response->getStatusCode() == self::statusCodeFor($action)) {
-      $this->_data = $response->json();
+      $this->_attributes = $response->json();
       return true;
     } else {
       $this->response_errors = $response->json()['errors'];
@@ -122,11 +122,11 @@ class BaseResource {
   }
 
   public function attributes() {
-    return $this->_data;
+    return $this->_attributes;
   }
 
   public function isNew() {
-    return !isset($this->_data['id']) || $this->_data['id'] == null;
+    return !isset($this->_attributes['id']) || $this->_attributes['id'] == null;
   }
 
   public function isPersisted() {
@@ -137,8 +137,8 @@ class BaseResource {
    * Getter for internal object data.
    */
   public function __get($k) {
-    if (isset ($this->_data[$k])) {
-      return $this->_data[$k];
+    if (isset ($this->_attributes[$k])) {
+      return $this->_attributes[$k];
     }
     return $this->{$k};
   }
@@ -147,10 +147,7 @@ class BaseResource {
    * Setter for internal object data.
    */
   public function __set($k, $v) {
-    if (isset ($this->_data[$k])) {
-      $this->_data[$k] = $v;
-      return;
-    }
+    $this->_attributes[$k] = $v;
     $this->{$k} = $v;
   }
 

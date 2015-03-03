@@ -84,6 +84,11 @@ $bank_billet = BoletoSimples\BankBillet::create(array (
   'notification_url' => 'http://example.com.br/notify'
 ));
 
+// Criar um novo boleto instanciando o objeto
+$bank_billet = new BoletoSimples\BankBillet(['amount' => '199,99', 'expire_at' => '2020-01-01']);
+$bank_billet->description = 'Cobrança XPTO';
+$bank_billet->save();
+
 ```
 
 ## Desenvolvendo
