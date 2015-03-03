@@ -110,7 +110,7 @@ Instale as dependências
 
 Rode os testes
 
-    $ ./vendor/bin/phpunit tests
+    $ ./vendor/bin/phpunit
 
 ## Licença
 
