@@ -89,6 +89,10 @@ $bank_billet = new BoletoSimples\BankBillet(['amount' => '199,99', 'expire_at' =
 $bank_billet->description = 'Cobrança XPTO';
 $bank_billet->save();
 
+// Mensagens de erro na criação do boleto
+$bank_billet = BoletoSimples\BankBillet::create(['amount' => 9.1]);
+$bank_billet->response_errors
+  // ["customer_person_name"=>["não pode ficar em branco"],"customer_cnpj_cpf"=>["não pode ficar em branco"],"description"=>["não pode ficar em branco"],"customer_zipcode"=>["não pode ficar em branco"],"expire_at"=>["não pode ficar em branco","não é uma data válida"]]);
 ```
 
 ## Desenvolvendo
