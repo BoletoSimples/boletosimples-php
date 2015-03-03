@@ -21,9 +21,31 @@ class BankBilletTest extends PHPUnit_Framework_TestCase {
   }
 
   /**
-   * @vcr bank_billets/create
+   * @vcr bank_billets/create/invalid_root
    */
-  public function testCreate() {
+  public function testCreateInvalidRoot() {
+    $bank_billet = BoletoSimples\BankBillet::create();
+
+    $this->assertTrue($bank_billet instanceof \BoletoSimples\BankBillet);
+    $this->assertFalse ($bank_billet->isPersisted());
+    $this->assertEquals ($bank_billet->response_errors, ["bank_billet"=>["não pode ficar em branco"]]);
+  }
+
+  /**
+   * @vcr bank_billets/create/invalid_params
+   */
+  public function testCreateInvalidParams() {
+    $bank_billet = BoletoSimples\BankBillet::create(['amount' => 9.1]);
+
+    $this->assertTrue($bank_billet instanceof \BoletoSimples\BankBillet);
+    $this->assertFalse ($bank_billet->isPersisted());
+    $this->assertEquals ($bank_billet->response_errors, ["customer_person_name"=>["não pode ficar em branco"],"customer_cnpj_cpf"=>["não pode ficar em branco"],"description"=>["não pode ficar em branco"],"customer_zipcode"=>["não pode ficar em branco"],"expire_at"=>["não pode ficar em branco","não é uma data válida"]]);
+  }
+
+  /**
+   * @vcr bank_billets/create/success
+   */
+  public function testCreateSuccess() {
     $bank_billet = BoletoSimples\BankBillet::create(array (
       'amount' => '9,01',
       'description' => 'Despesas do contrato 0012',
