@@ -77,23 +77,25 @@ class BaseResource {
   }
 
   public static function methodFor($action) {
-    return array(
+    $methods = array(
       'create' => 'POST',
       'update' => 'PUT',
       'find' => 'GET',
       'destroy' => 'DELETE',
       'new' => 'GET'
-    )[$action];
+    );
+    return $methods[$action];
   }
 
   public static function statusCodeFor($action) {
-    return array(
+    $codes = array(
       'create' => 201,
       'update' => 200,
       'find' => 200,
       'destroy' => 200,
       'new' => 200
-    )[$action];
+    );
+    return $codes[$action];
   }
 
   public static function find($id) {
