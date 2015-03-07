@@ -7,24 +7,19 @@ use CommerceGuys\Guzzle\Oauth2\Oauth2Subscriber;
 
 class BaseResource {
   /**
+   * The GuzzleHttp\Client object
+   */
+  public static $client = null;
+
+  /**
+   * Default options used on Guzzle requests
+   */
+  public static $default_options = null;
+
+  /**
    * The attributes of the current object, accessed via the anonymous get/set methods.
    */
   private $_attributes = array();
-
-  /**
-   * Element name used in path of member requests
-   */
-  private $element_name = null;
-
-  /**
-   * Element name in plural used in path of collection requests
-   */
-  private $element_name_plural = null;
-
-  /**
-   * The GuzzleHttp\Client object
-   */
-  public $client = null;
 
   /**
    * Array with all errors returned from last request.
@@ -36,24 +31,13 @@ class BaseResource {
    */
   public function __construct($attributes = array()) {
     $this->_attributes = $attributes;
-
-    // Allow class-defined element name or use class name if not defined
-    $this->element_name = $this->element_name ? $this->element_name : $this->underscorize(get_class($this));
-    $this->element_name_plural = $this->pluralize($this->element_name);
-
-    // Detect for namespaces, and take just the class name
-    if (stripos($this->element_name, '\\'))
-    {
-      $classItems = explode('\\', $this->element_name);
-      $this->element_name = end($classItems);
-    }
-    $this->configure();
+    self::configure();
   }
 
   /**
    * Configure the GuzzleHttp\Client with default options.
    */
-  public function configure() {
+  public static function configure() {
     $config = \BoletoSimples::$configuration;
     if (!$config) {
       return;
@@ -64,7 +48,7 @@ class BaseResource {
       $oauth2->setAccessToken($config->access_token);
     }
 
-    $this->client = new Client([
+    self::$client = new Client([
       'base_url' => $config->baseUri(),
       'defaults' => [
         'headers' => [
@@ -74,6 +58,20 @@ class BaseResource {
         'subscribers' => [$oauth2],
       ]
     ]);
+
+    self::$default_options = ['headers' => ['Content-Type'=> 'application/json'], 'exceptions' => false];
+  }
+
+  public function attributes() {
+    return $this->_attributes;
+  }
+
+  public function isNew() {
+    return !isset($this->_attributes['id']) || $this->_attributes['id'] == null;
+  }
+
+  public function isPersisted() {
+    return !$this->isNew();
   }
 
   public static function methodFor($action) {
@@ -107,14 +105,6 @@ class BaseResource {
     return $object->_find();
   }
 
-  public function _find() {
-    if($this->_request('find')) {
-      return $this;
-    } else {
-      throw new \Exception("Couldn't find " . get_called_class() . " with 'id'=". $this->id);
-    }
-  }
-
   public static function create($attributes = array()) {
     $class = get_called_class();
     $object = new $class($attributes);
@@ -127,19 +117,40 @@ class BaseResource {
     return $this->_request($action);
   }
 
-  private function _request($action) {
-    $method = self::methodFor($action);
-    $path = $this->isNew() ? $this->element_name_plural : $this->element_name_plural . "/". $this->_attributes['id'];
+  public static function all($params = array()) {
+    $class = get_called_class();
+    $options = self::$default_options;
+    $options = array_merge($options, ['query' => $params]);
+    $response = self::$client->get($class::element_name_plural(), $options);
+    $collection = [];
+    if($response->getStatusCode() == 200) {
+      foreach($response->json() as $attributes) {
+        $collection[] = new $class($attributes);
+      }
+    }
+    return $collection;
+  }
 
-    $options = ['headers' => ['Content-Type'=> 'application/json'], 'exceptions' => false];
+  private function _find() {
+    if($this->_request('find')) {
+      return $this;
+    } else {
+      throw new \Exception("Couldn't find " . get_called_class() . " with 'id'=". $this->id);
+    }
+  }
+
+  private function _request($action) {
+    $class = get_called_class();
+    $method = self::methodFor($action);
+    $path = $this->isNew() ? $class::element_name_plural() : $class::element_name_plural() . "/". $this->_attributes['id'];
+    $options = self::$default_options;
     if($method == 'POST') {
-      $attributes = [$this->element_name => $this->_attributes];
+      $attributes = [$class::element_name() => $this->_attributes];
       $options = array_merge($options, ['json' => $attributes]);
     }
 
-    $request = $this->client->createRequest($method, $path, $options);
-    $response = $this->client->send($request);
-
+    $request = self::$client->createRequest($method, $path, $options);
+    $response = self::$client->send($request);
     if($response->getStatusCode() == self::statusCodeFor($action)) {
       $this->_attributes = $response->json();
       return true;
@@ -149,18 +160,6 @@ class BaseResource {
       }
       return false;
     }
-  }
-
-  public function attributes() {
-    return $this->_attributes;
-  }
-
-  public function isNew() {
-    return !isset($this->_attributes['id']) || $this->_attributes['id'] == null;
-  }
-
-  public function isPersisted() {
-    return !$this->isNew();
   }
 
   /**
@@ -181,10 +180,27 @@ class BaseResource {
     $this->{$k} = $v;
   }
 
+  public static function element_name() {
+    // Allow class-defined element name or use class name if not defined
+    $element_name = self::underscorize(get_called_class());
+
+    // Detect for namespaces, and take just the class name
+    if (stripos($element_name, '\\'))
+    {
+      $classItems = explode('\\', $element_name);
+      $element_name = end($classItems);
+    }
+    return $element_name;
+  }
+
+  public static function element_name_plural() {
+    return self::pluralize(self::element_name());
+  }
+
   /**
    * Pluralize the element name.
    */
-  private function pluralize($word) {
+  private static function pluralize($word) {
     $word .= 's';
     $word = preg_replace('/(x|ch|sh|ss])s$/', '\1es', $word);
     $word = preg_replace('/ss$/', 'ses', $word);
@@ -199,7 +215,7 @@ class BaseResource {
   /**
    * Undescorize the element name.
    */
-  private function underscorize($word){
+  private static function underscorize($word){
     $word = preg_replace('/[\'"]/', '', $word);
     $word = preg_replace('/[^a-zA-Z0-9]+/', '_', $word);
     $word = preg_replace('/([A-Z\d]+)([A-Z][a-z])/', '\1_\2', $word);

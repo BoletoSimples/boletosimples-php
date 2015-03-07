@@ -98,6 +98,12 @@ $bank_billet = BoletoSimples\BankBillet::find(1); // onde 1 é o id do boleto.
 // Se o não for encontrado nenhum boleto com o id informado, uma exceção será levantada com a mensagem:
 // Couldn't find BoletoSimples\BankBillet with 'id'=1
 
+// Listar os boletos
+$bank_billets = BoletoSimples\BankBillet::all(['page' => 1, 'per_page' => 50]);
+foreach($bank_billets as $bank_billet) {
+  print_r($bank_billet->attributes());
+}
+
 ```
 
 ## Desenvolvendo

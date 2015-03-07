@@ -17,8 +17,8 @@ class BankBilletTest extends PHPUnit_Framework_TestCase {
     $subject->foo = 'asdf';
     $this->assertEquals ($subject->foo, 'asdf');
     $this->assertEquals ($subject->attributes(), array ('foo' => 'asdf'));
-    $this->assertEquals ($subject->element_name, 'bank_billet');
-    $this->assertEquals ($subject->element_name_plural, 'bank_billets');
+    $this->assertEquals (BoletoSimples\BankBillet::element_name(), 'bank_billet');
+    $this->assertEquals (BoletoSimples\BankBillet::element_name_plural(), 'bank_billets');
   }
 
   /**
@@ -122,6 +122,17 @@ class BankBilletTest extends PHPUnit_Framework_TestCase {
   public function testFindFailure() {
     $bank_billet = BoletoSimples\BankBillet::find(1);
     $this->assertFalse($bank_billet);
+  }
+
+
+  /**
+   * @vcr bank_billets/all/success
+   */
+  public function testAllSuccess() {
+    $bank_billets = BoletoSimples\BankBillet::all(['page'=>1, 'per_page'=>2]);
+    $this->assertTrue(is_array($bank_billets));
+    $this->assertCount(2, $bank_billets);
+    $this->assertTrue($bank_billets[0] instanceof \BoletoSimples\BankBillet);
   }
 
 }

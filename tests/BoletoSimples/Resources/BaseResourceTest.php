@@ -12,8 +12,8 @@ class BaseResourceTest extends PHPUnit_Framework_TestCase {
     $subject->foo = 'asdf';
     $this->assertEquals ($subject->foo, 'asdf');
     $this->assertEquals ($subject->attributes(), array ('foo' => 'asdf'));
-    $this->assertEquals ($subject->element_name, 'example_resource');
-    $this->assertEquals ($subject->element_name_plural, 'example_resources');
+    $this->assertEquals (ExampleResource::element_name(), 'example_resource');
+    $this->assertEquals (ExampleResource::element_name_plural(), 'example_resources');
   }
   public function testIsNew () {
     $subject = new ExampleResource();
