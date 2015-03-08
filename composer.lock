@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "21c854444a685f018068d8cab889da63",
+    "hash": "aefc3aaf36379c761b228b88c3c3804b",
     "packages": [
         {
             "name": "commerceguys/guzzle-oauth2-plugin",
-            "version": "v2.0.0-beta1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/commerceguys/guzzle-oauth2-plugin.git",
-                "reference": "3e85e84f89f36191a21aac15f0bcfc002b566313"
+                "reference": "eb0b64be9c1732ff5f8a362c2d1c1bfc0e6d195a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/commerceguys/guzzle-oauth2-plugin/zipball/3e85e84f89f36191a21aac15f0bcfc002b566313",
-                "reference": "3e85e84f89f36191a21aac15f0bcfc002b566313",
+                "url": "https://api.github.com/repos/commerceguys/guzzle-oauth2-plugin/zipball/eb0b64be9c1732ff5f8a362c2d1c1bfc0e6d195a",
+                "reference": "eb0b64be9c1732ff5f8a362c2d1c1bfc0e6d195a",
                 "shasum": ""
             },
             "require": {
@@ -45,7 +45,7 @@
                 }
             ],
             "description": "An OAuth2 plugin for Guzzle 5.x",
-            "time": "2015-02-23 16:36:21"
+            "time": "2015-03-04 10:13:34"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -1422,6 +1422,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "commerceguys/guzzle-oauth2-plugin": 20,
         "ptrofimov/xpmock": 20
     },
     "prefer-stable": true,

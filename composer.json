@@ -21,7 +21,7 @@
   "prefer-stable" : true,
   "require": {
     "guzzlehttp/guzzle": "5.*",
-    "commerceguys/guzzle-oauth2-plugin": "2.*"
+    "commerceguys/guzzle-oauth2-plugin": "dev-master"
 	},
   "require-dev": {
     "phpunit/phpunit": "4.5.*",
