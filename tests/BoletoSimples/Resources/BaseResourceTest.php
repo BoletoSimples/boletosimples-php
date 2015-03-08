@@ -1,7 +1,7 @@
 <?php
 
 class ExampleResource extends BoletoSimples\BaseResource {
-
+  public $property = 'value';
 }
 
 class BaseResourceTest extends PHPUnit_Framework_TestCase {
@@ -12,6 +12,7 @@ class BaseResourceTest extends PHPUnit_Framework_TestCase {
     $subject->foo = 'asdf';
     $this->assertEquals ($subject->foo, 'asdf');
     $this->assertEquals ($subject->attributes(), array ('foo' => 'asdf'));
+    $this->assertEquals ($subject->property, 'value');
     $this->assertEquals (ExampleResource::element_name(), 'example_resource');
     $this->assertEquals (ExampleResource::element_name_plural(), 'example_resources');
   }

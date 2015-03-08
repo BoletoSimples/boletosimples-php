@@ -144,20 +144,11 @@ class BaseResource {
   }
 
   public static function element_name() {
-    // Allow class-defined element name or use class name if not defined
-    $element_name = self::underscorize(get_called_class());
-
-    // Detect for namespaces, and take just the class name
-    if (stripos($element_name, '\\'))
-    {
-      $classItems = explode('\\', $element_name);
-      $element_name = end($classItems);
-    }
-    return $element_name;
+    return Util::underscorize(get_called_class());
   }
 
   public static function element_name_plural() {
-    return self::pluralize(self::element_name());
+    return Util::pluralize(self::element_name());
   }
 
   public static function sendRequest($method, $path, $options = []) {
@@ -181,14 +172,9 @@ class BaseResource {
    */
   public static function configure() {
     $config = \BoletoSimples::$configuration;
-    if (!$config) {
-      return;
-    }
 
     $oauth2 = new Oauth2Subscriber();
-    if ($config->access_token) {
-      $oauth2->setAccessToken($config->access_token);
-    }
+    $oauth2->setAccessToken($config->access_token);
 
     self::$client = new Client([
       'base_url' => $config->baseUri(),
@@ -202,35 +188,6 @@ class BaseResource {
     ]);
 
     self::$default_options = ['headers' => ['Content-Type'=> 'application/json'], 'exceptions' => false];
-  }
-
-  /**
-   * Pluralize the element name.
-   */
-  private static function pluralize($word) {
-    $word .= 's';
-    $word = preg_replace('/(x|ch|sh|ss])s$/', '\1es', $word);
-    $word = preg_replace('/ss$/', 'ses', $word);
-    $word = preg_replace('/([ti])ums$/', '\1a', $word);
-    $word = preg_replace('/sises$/', 'ses', $word);
-    $word = preg_replace('/([^aeiouy]|qu)ys$/', '\1ies', $word);
-    $word = preg_replace('/(?:([^f])fe|([lr])f)s$/', '\1\2ves', $word);
-    $word = preg_replace('/ieses$/', 'ies', $word);
-    return $word;
-  }
-
-  /**
-   * Undescorize the element name.
-   */
-  private static function underscorize($word) {
-    $word = preg_replace('/[\'"]/', '', $word);
-    $word = preg_replace('/[^a-zA-Z0-9]+/', '_', $word);
-    $word = preg_replace('/([A-Z\d]+)([A-Z][a-z])/', '\1_\2', $word);
-    $word = preg_replace('/([a-z\d])([A-Z])/', '\1_\2', $word);
-    $word = trim($word, '_');
-    $word = strtolower($word);
-    $word = str_replace('boleto_simples_', '', $word);
-    return $word;
   }
 
 }
