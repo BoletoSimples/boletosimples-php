@@ -2,8 +2,6 @@
 
 namespace BoletoSimples;
 
-const VERSION = "0.0.1";
-
 class Configuration {
   private $environments_uri = array('sandbox' => 'https://sandbox.boletosimples.com.br/api/v1/', 'production' => 'https://boletosimples.com.br/api/v1/');
   public $environment = null;
@@ -19,7 +17,7 @@ class Configuration {
   }
 
   public function userAgent() {
-    return "BoletoSimples PHP Client v".VERSION." (contato@boletosimples.com.br)";
+    return "BoletoSimples PHP Client v".\BoletoSimples::VERSION." (contato@boletosimples.com.br)";
   }
 
   public function hasAccessToken() {
