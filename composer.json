@@ -1,7 +1,6 @@
 {
 	"name": "boletosimples/boletosimples",
 	"type": "library",
-  "version": "0.0.1",
 	"description": "A PHP client library for easily accessing Boleto Simples API.",
 	"keywords": ["boleto","simples","boletosimples","ecommerce"],
 	"homepage": "http://api.boletosimples.com.br",
