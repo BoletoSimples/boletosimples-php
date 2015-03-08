@@ -1,0 +1,36 @@
+
+-
+    request:
+        method: GET
+        url: 'https://sandbox.boletosimples.com.br/api/v1/customers?page=1&per_page=2'
+        headers:
+            Host: sandbox.boletosimples.com.br
+            Accept-Encoding: null
+            Content-Type: application/json
+            User-Agent: 'BoletoSimples PHP Client v0.0.1 (contato@boletosimples.com.br)'
+            Authorization: 'Bearer BOLETOSIMPLES_ACCESS_TOKEN'
+            Accept: null
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Server: Cowboy
+            Connection: keep-alive
+            Strict-Transport-Security: max-age=2592000
+            Link: '<https://sandbox.boletosimples.com.br/api/v1/customers?page=2&per_page=2>; rel="last", <https://sandbox.boletosimples.com.br/api/v1/customers?page=2&per_page=2>; rel="next"'
+            Total: '4'
+            Content-Type: 'application/json; charset=utf-8'
+            X-Ratelimit-Limit: '500'
+            X-Ratelimit-Remaining: '491'
+            Etag: 'W/"4517fc76a83c1e0ec89b44494f2e7053"'
+            Cache-Control: 'must-revalidate, private, max-age=0'
+            X-Request-Id: ca58e7cd-414d-4e51-957f-3f722babf9b7
+            X-Runtime: '0.045139'
+            Date: 'Sun, 08 Mar 2015 02:47:38 GMT'
+            X-Rack-Cache: miss
+            Vary: Accept-Encoding
+            Transfer-Encoding: chunked
+            Via: '1.1 vegur'
+        body: '[{"id":57,"city_name":"Rio de Janeiro","person_name":"Joao da Silva","address":"Rua quinhentos","address_complement":"Sala 4","address_number":"111","mobile_number":null,"cnpj_cpf":"012.345.678-90","email":"cliente@bom.com","neighborhood":"Sao Francisco","person_type":"individual","phone_number":"2112123434","zipcode":"12312-123","mobile_local_code":null,"state":"RJ","created_via_api":true},{"id":58,"city_name":"Rio de Janeiro","person_name":"Maria José","address":"Rua quinhentos","address_complement":"Sala 4","address_number":"111","mobile_number":null,"cnpj_cpf":"223.886.692-27","email":"cliente@bom.com","neighborhood":"bairro","person_type":"individual","phone_number":"2112123434","zipcode":"12312-123","mobile_local_code":null,"state":"RJ","created_via_api":true}]'

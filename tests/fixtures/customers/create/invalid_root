@@ -1,0 +1,35 @@
+
+-
+    request:
+        method: POST
+        url: 'https://sandbox.boletosimples.com.br/api/v1/customers'
+        headers:
+            Host: sandbox.boletosimples.com.br
+            Expect: null
+            Accept-Encoding: null
+            Content-Type: application/json
+            User-Agent: 'BoletoSimples PHP Client v0.0.1 (contato@boletosimples.com.br)'
+            Authorization: 'Bearer BOLETOSIMPLES_ACCESS_TOKEN'
+            Accept: null
+        body: '{"customer":[]}'
+    response:
+        status:
+            http_version: '1.1'
+            code: '422'
+            message: 'Unprocessable Entity'
+        headers:
+            Server: Cowboy
+            Connection: keep-alive
+            Strict-Transport-Security: max-age=2592000
+            Content-Type: 'application/json; charset=utf-8'
+            X-Ratelimit-Limit: '500'
+            X-Ratelimit-Remaining: '498'
+            Cache-Control: no-cache
+            X-Request-Id: 21a988c6-f7b4-4c8b-b488-cfbf42e1805b
+            X-Runtime: '0.047903'
+            Date: 'Sun, 08 Mar 2015 02:47:31 GMT'
+            X-Rack-Cache: 'invalidate, pass'
+            Vary: Accept-Encoding
+            Transfer-Encoding: chunked
+            Via: '1.1 vegur'
+        body: '{"errors":{"customer":["não pode ficar em branco"]}}'

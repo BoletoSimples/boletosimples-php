@@ -1,0 +1,37 @@
+
+-
+    request:
+        method: POST
+        url: 'https://sandbox.boletosimples.com.br/api/v1/customers'
+        headers:
+            Host: sandbox.boletosimples.com.br
+            Expect: null
+            Accept-Encoding: null
+            Content-Type: application/json
+            User-Agent: 'BoletoSimples PHP Client v0.0.1 (contato@boletosimples.com.br)'
+            Authorization: 'Bearer BOLETOSIMPLES_ACCESS_TOKEN'
+            Accept: null
+        body: '{"customer":{"cnpj_cpf":"828.788.171-41","person_name":"Joao da Silva","zipcode":"12312-123"}}'
+    response:
+        status:
+            http_version: '1.1'
+            code: '201'
+            message: Created
+        headers:
+            Server: Cowboy
+            Connection: keep-alive
+            Strict-Transport-Security: max-age=2592000
+            Location: 'https://sandbox.boletosimples.com.br/api/v1/customers/64'
+            Content-Type: 'application/json; charset=utf-8'
+            X-Ratelimit-Limit: '500'
+            X-Ratelimit-Remaining: '489'
+            Etag: 'W/"e1f53faf6140c30c427dd5834d961a1f"'
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            X-Request-Id: 93c2c95b-c421-4188-a0fb-4d3dae5352b7
+            X-Runtime: '0.041268'
+            Date: 'Sun, 08 Mar 2015 02:53:10 GMT'
+            X-Rack-Cache: 'invalidate, pass'
+            Vary: Accept-Encoding
+            Transfer-Encoding: chunked
+            Via: '1.1 vegur'
+        body: '{"id":64,"city_name":null,"person_name":"Joao da Silva","address":null,"address_complement":null,"address_number":null,"mobile_number":null,"cnpj_cpf":"828.788.171-41","email":null,"neighborhood":null,"person_type":"individual","phone_number":null,"zipcode":"12312-123","mobile_local_code":null,"state":null,"created_via_api":true}'

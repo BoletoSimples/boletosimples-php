@@ -90,13 +90,12 @@ $bank_billet->save();
 // Mensagens de erro na criação do boleto
 $bank_billet = BoletoSimples\BankBillet::create(['amount' => 9.1]);
 $bank_billet->response_errors
-  // ["customer_person_name"=>["não pode ficar em branco"],"customer_cnpj_cpf"=>["não pode ficar em branco"],"description"=>["não pode ficar em branco"],"customer_zipcode"=>["não pode ficar em branco"],"expire_at"=>["não pode ficar em branco","não é uma data válida"]]);
+  // ["customer_person_name"=>["não pode ficar em branco"],"customer_cnpj_cpf"=>["não pode ficar em branco"],"description"=>["não pode ficar em branco"],"customer_zipcode"=>["não pode ficar em branco"],"expire_at"=>["não pode ficar em branco","não é uma data válida"]]
 
 // Pegar informações de um boleto
 $bank_billet = BoletoSimples\BankBillet::find(1); // onde 1 é o id do boleto.
 
-// Se o não for encontrado nenhum boleto com o id informado, uma exceção será levantada com a mensagem:
-// Couldn't find BoletoSimples\BankBillet with 'id'=1
+// Se o não for encontrado nenhum boleto com o id informado, uma exceção será levantada com a mensagem 'Not Found'
 
 // Listar os boletos
 $bank_billets = BoletoSimples\BankBillet::all(['page' => 1, 'per_page' => 50]);
@@ -115,7 +114,56 @@ BoletoSimples::$last_request->links['last'] // url da última página
 // Cancelar um boleto
 $bank_billet = BoletoSimples\BankBillet::find(1);
 $bank_billet->cancel();
+```
 
+### Clientes
+
+```php
+// Criar um cliente
+$customer = BoletoSimples\Customer::create(array (
+  'person_name' => "Joao da Silva",
+  'cnpj_cpf' => "321.315.217-07",
+  'email' => "cliente@bom.com",
+  'address' => "Rua quinhentos",
+  'city_name' => "Rio de Janeiro",
+  'state' => "RJ",
+  'neighborhood' => "bairro",
+  'zipcode' => "12312-123",
+  'address_number' => "111",
+  'address_complement' => "Sala 4",
+  'phone_number' => "2112123434"
+));
+
+// Criar um novo cliente instanciando o objeto
+$customer = new BoletoSimples\Customer();
+$customer->cnpj_cpf = '828.788.171-41';
+$customer->person_name = 'Joao da Silva';
+$customer->zipcode = '12312-123';
+$customer->save();
+
+// Mensagens de erro na criação do cliente
+$customer = BoletoSimples\Customer::create(['person_name' => 'Joao da Silva', 'cnpj_cpf' => '321.315.217-07']);
+$customer->response_errors
+  // ["cnpj_cpf"=>["já está em uso"],"zipcode"=>["não pode ficar em branco"]]
+
+// Pegar informações de um cliente
+$customer = BoletoSimples\Customer::find(1); // onde 1 é o id do cliente.
+
+// Se o não for encontrado nenhum cliente com o id informado, uma exceção será levantada com a mensagem 'Not Found'
+
+// Listar os clientes
+$customers = BoletoSimples\Customer::all(['page' => 1, 'per_page' => 50]);
+foreach($customers as $customer) {
+  print_r($customer->attributes());
+}
+
+ // Após realizar a chamada na listagem, você terá acesso aos seguintes dados:
+
+BoletoSimples::$last_request->total // número total de clientes
+BoletoSimples::$last_request->links['first'] // url da primeira página
+BoletoSimples::$last_request->links['prev'] // url da página anterior
+BoletoSimples::$last_request->links['next'] // url da próxima página
+BoletoSimples::$last_request->links['last'] // url da última página
 ```
 
 ## Desenvolvendo
