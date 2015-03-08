@@ -14,7 +14,7 @@
 [versioneye]: https://www.versioneye.com/user/projects/54f3d5904f31083e1b000838
 [packagist_license]: https://github.com/BoletoSimples/boletosimples-php/blob/master/LICENSE
 
-Essa biblioteca é um conjunto de classes em PHP para acessar informações da sua conta no [Boleto Simples](http://boletosimples.com.br) através da [API](http://api.boletosimples.com.br).
+Biblioteca PHP para acessar informações do [Boleto Simples](http://boletosimples.com.br) através da [API](http://api.boletosimples.com.br).
 
 ## Instalação
 
