@@ -122,11 +122,8 @@ class BaseResource {
     }
     $class = get_called_class();
     $object = new $class(['id' => $id]);
-    if($object->_request('find')) {
-      return $object;
-    } else {
-      throw new \Exception("Couldn't find " . get_called_class() . " with 'id'=". $object->id);
-    }
+    $object->_request('find');
+    return $object;
   }
 
   public static function _create($attributes = array()) {
@@ -169,7 +166,10 @@ class BaseResource {
     $options = array_merge(self::$default_options, $options);
     $request = self::$client->createRequest($method, $path, $options);
     $response = self::$client->send($request);
-    \BoletoSimples::$last_request = new \BoletoSimples\LastRequest($request, $response);
+    \BoletoSimples::$last_request = new LastRequest($request, $response);
+    if($response->getStatusCode() >= 400 && $response->getStatusCode() <= 599) {
+      new ResponseError($response);
+    }
     return $response;
   }
 

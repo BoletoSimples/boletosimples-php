@@ -116,12 +116,21 @@ class BankBilletTest extends PHPUnit_Framework_TestCase {
 
   /**
    * @vcr bank_billets/find/failure
-   * @expectedException     Exception
-   * @expectedExceptionMessage Couldn't find BoletoSimples\BankBillet with 'id'=1
+   * @expectedException     \BoletoSimples\ResponseError
+   * @expectedExceptionMessage Not Found
    */
   public function testFindFailure() {
     $bank_billet = BoletoSimples\BankBillet::find(1);
-    $this->assertFalse($bank_billet);
+  }
+
+  /**
+   * @vcr bank_billets/find/unauthenticated
+   * @expectedException     \BoletoSimples\ResponseError
+   * @expectedExceptionMessage Você precisa se logar ou registrar antes de prosseguir.
+   */
+  public function testFindUnauthenticated() {
+    BoletoSimples::configure(['environment' => 'sandbox', 'access_token' => 'invalid']);
+    $bank_billet = BoletoSimples\BankBillet::find(1);
   }
 
   /**
