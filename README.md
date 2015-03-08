@@ -166,6 +166,16 @@ BoletoSimples::$last_request->links['next'] // url da próxima página
 BoletoSimples::$last_request->links['last'] // url da última página
 ```
 
+### Extrato
+
+```php
+// Listar todas as transações
+$transactions = BoletoSimples\Transaction::all;
+foreach($transactions as $transaction) {
+  print_r($transaction->attributes());
+}
+```
+
 ## Desenvolvendo
 
 Instale as dependências
