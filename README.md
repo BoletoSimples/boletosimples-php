@@ -104,6 +104,14 @@ foreach($bank_billets as $bank_billet) {
   print_r($bank_billet->attributes());
 }
 
+ // Após realizar a chamada na listagem, você terá acesso aos seguintes dados:
+
+BoletoSimples::$last_request->total // número total de boletos
+BoletoSimples::$last_request->links['first'] // url da primeira página
+BoletoSimples::$last_request->links['prev'] // url da página anterior
+BoletoSimples::$last_request->links['next'] // url da próxima página
+BoletoSimples::$last_request->links['last'] // url da última página
+
 ```
 
 ## Desenvolvendo

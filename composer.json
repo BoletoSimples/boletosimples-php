@@ -19,8 +19,9 @@
     "sources": "https://github.com/BoletoSimples/boletosimples-php"
   },
 	"require": {
-		"guzzlehttp/guzzle": "5.2.0",
-    "commerceguys/guzzle-oauth2-plugin": "dev-master"
+    "guzzlehttp/guzzle": "5.2.0",
+    "commerceguys/guzzle-oauth2-plugin": "dev-master",
+    "ptrofimov/xpmock": "dev-master"
 	},
   "require-dev": {
     "phpunit/phpunit": "4.5.*",

@@ -119,9 +119,7 @@ class BaseResource {
 
   public static function all($params = array()) {
     $class = get_called_class();
-    $options = self::$default_options;
-    $options = array_merge($options, ['query' => $params]);
-    $response = self::$client->get($class::element_name_plural(), $options);
+    $response = self::sendRequest('GET', $class::element_name_plural(), array_merge(self::$default_options, ['query' => $params]));
     $collection = [];
     if($response->getStatusCode() == 200) {
       foreach($response->json() as $attributes) {
@@ -129,37 +127,6 @@ class BaseResource {
       }
     }
     return $collection;
-  }
-
-  private function _find() {
-    if($this->_request('find')) {
-      return $this;
-    } else {
-      throw new \Exception("Couldn't find " . get_called_class() . " with 'id'=". $this->id);
-    }
-  }
-
-  private function _request($action) {
-    $class = get_called_class();
-    $method = self::methodFor($action);
-    $path = $this->isNew() ? $class::element_name_plural() : $class::element_name_plural() . "/". $this->_attributes['id'];
-    $options = self::$default_options;
-    if($method == 'POST') {
-      $attributes = [$class::element_name() => $this->_attributes];
-      $options = array_merge($options, ['json' => $attributes]);
-    }
-
-    $request = self::$client->createRequest($method, $path, $options);
-    $response = self::$client->send($request);
-    if($response->getStatusCode() == self::statusCodeFor($action)) {
-      $this->_attributes = $response->json();
-      return true;
-    } else {
-      if(isset($response->json()['errors'])) {
-        $this->response_errors = $response->json()['errors'];
-      }
-      return false;
-    }
   }
 
   /**
@@ -195,6 +162,43 @@ class BaseResource {
 
   public static function element_name_plural() {
     return self::pluralize(self::element_name());
+  }
+
+  private function _find() {
+    if($this->_request('find')) {
+      return $this;
+    } else {
+      throw new \Exception("Couldn't find " . get_called_class() . " with 'id'=". $this->id);
+    }
+  }
+
+  private function _request($action) {
+    $class = get_called_class();
+    $method = self::methodFor($action);
+    $path = $this->isNew() ? $class::element_name_plural() : $class::element_name_plural() . "/". $this->_attributes['id'];
+    $options = self::$default_options;
+    if($method == 'POST') {
+      $attributes = [$class::element_name() => $this->_attributes];
+      $options = array_merge($options, ['json' => $attributes]);
+    }
+
+    $response = self::sendRequest($method, $path, $options);
+    if($response->getStatusCode() == self::statusCodeFor($action)) {
+      $this->_attributes = $response->json();
+      return true;
+    } else {
+      if(isset($response->json()['errors'])) {
+        $this->response_errors = $response->json()['errors'];
+      }
+      return false;
+    }
+  }
+
+  private static function sendRequest($method, $path, $options) {
+    $request = self::$client->createRequest($method, $path, $options);
+    $response = self::$client->send($request);
+    \BoletoSimples::$last_request = new \BoletoSimples\LastRequest($request, $response);
+    return $response;
   }
 
   /**

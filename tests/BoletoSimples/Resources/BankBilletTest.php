@@ -133,6 +133,12 @@ class BankBilletTest extends PHPUnit_Framework_TestCase {
     $this->assertTrue(is_array($bank_billets));
     $this->assertCount(2, $bank_billets);
     $this->assertTrue($bank_billets[0] instanceof \BoletoSimples\BankBillet);
+
+    $this->assertEquals(BoletoSimples::$last_request->total, 110);
+    $this->assertEquals(BoletoSimples::$last_request->ratelimit_limit, 500);
+    $this->assertEquals(BoletoSimples::$last_request->ratelimit_remaining, 498);
+    $this->assertEquals(BoletoSimples::$last_request->links['last'], 'https://sandbox.boletosimples.com.br/api/v1/bank_billets?page=55&per_page=2');
+    $this->assertEquals(BoletoSimples::$last_request->links['next'], 'https://sandbox.boletosimples.com.br/api/v1/bank_billets?page=2&per_page=2');
   }
 
 }
