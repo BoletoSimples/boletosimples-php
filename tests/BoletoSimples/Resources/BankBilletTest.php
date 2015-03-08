@@ -124,7 +124,6 @@ class BankBilletTest extends PHPUnit_Framework_TestCase {
     $this->assertFalse($bank_billet);
   }
 
-
   /**
    * @vcr bank_billets/all/success
    */
@@ -141,4 +140,13 @@ class BankBilletTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals(BoletoSimples::$last_request->links['next'], 'https://sandbox.boletosimples.com.br/api/v1/bank_billets?page=2&per_page=2');
   }
 
+  /**
+   * @vcr bank_billets/cancel/success
+   * @group now
+   */
+  public function testCancelSuccess() {
+    $bank_billet = BoletoSimples\BankBillet::find(self::$bank_billet_id);
+    $bank_billet->cancel();
+    $this->assertEquals ($bank_billet->status, 'canceled');
+  }
 }

@@ -112,6 +112,10 @@ BoletoSimples::$last_request->links['prev'] // url da página anterior
 BoletoSimples::$last_request->links['next'] // url da próxima página
 BoletoSimples::$last_request->links['last'] // url da última página
 
+// Cancelar um boleto
+$bank_billet = BoletoSimples\BankBillet::find(1);
+$bank_billet->cancel();
+
 ```
 
 ## Desenvolvendo

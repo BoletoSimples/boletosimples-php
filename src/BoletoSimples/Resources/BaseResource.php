@@ -29,9 +29,153 @@ class BaseResource {
   /**
    * Constructor method.
    */
-  public function __construct($attributes = array()) {
+  public function __construct($attributes = []) {
     $this->_attributes = $attributes;
     self::configure();
+  }
+
+  /**
+   * Getter for internal object data.
+   */
+  public function __get($k) {
+    if (isset ($this->_attributes[$k])) {
+      return $this->_attributes[$k];
+    }
+    return $this->{$k};
+  }
+
+  /**
+   * Setter for internal object data.
+   */
+  public function __set($k, $v) {
+    $this->_attributes[$k] = $v;
+    $this->{$k} = $v;
+  }
+
+  public function attributes() {
+    return $this->_attributes;
+  }
+
+  public function isNew() {
+    return !isset($this->_attributes['id']) || $this->_attributes['id'] == null;
+  }
+
+  public function isPersisted() {
+    return !$this->isNew();
+  }
+
+  public function path($action = null) {
+    $class = get_called_class();
+    $path = $this->isNew() ? $class::element_name_plural() : $class::element_name_plural() . "/". $this->_attributes['id'];
+    if($action) {
+      $path .= '/' . $action;
+    }
+    return $path;
+  }
+
+  public function save() {
+    $action = $this->isNew() ? 'create' : 'update';
+    return $this->_request($action);
+  }
+
+  public function parseResponse($response) {
+    $status = $response->getStatusCode();
+    if($status >= 200 && $status <= 299) {
+      $this->_attributes = $response->json();
+      return true;
+    } else {
+      if(isset($response->json()['errors'])) {
+        $this->response_errors = $response->json()['errors'];
+      }
+      return false;
+    }
+  }
+
+  private function _request($action) {
+    $class = get_called_class();
+    $method = self::methodFor($action);
+    $path = $this->path();
+    $options = [];
+    if($method == 'POST') {
+      $attributes = [$class::element_name() => $this->_attributes];
+      $options = ['json' => $attributes];
+    }
+
+    $response = self::sendRequest($method, $path, $options);
+    return $this->parseResponse($response);
+  }
+
+  public static function methodFor($action) {
+    $methods = array(
+      'create' => 'POST',
+      'update' => 'PUT',
+      'find' => 'GET',
+      'destroy' => 'DELETE',
+      'new' => 'GET'
+    );
+    return $methods[$action];
+  }
+
+  public static function _find($id) {
+    if(!$id) {
+      throw new \Exception("Couldn't find " . get_called_class() . " without an ID.");
+    }
+    $class = get_called_class();
+    $object = new $class(['id' => $id]);
+    if($object->_request('find')) {
+      return $object;
+    } else {
+      throw new \Exception("Couldn't find " . get_called_class() . " with 'id'=". $object->id);
+    }
+  }
+
+  public static function _create($attributes = array()) {
+    $class = get_called_class();
+    $object = new $class($attributes);
+    $object->save();
+    return $object;
+  }
+
+  public static function _all($params = array()) {
+    $class = get_called_class();
+    $response = self::sendRequest('GET', $class::element_name_plural(), ['query' => $params]);
+    $collection = [];
+    if($response->getStatusCode() == 200) {
+      foreach($response->json() as $attributes) {
+        $collection[] = new $class($attributes);
+      }
+    }
+    return $collection;
+  }
+
+  public static function element_name() {
+    // Allow class-defined element name or use class name if not defined
+    $element_name = self::underscorize(get_called_class());
+
+    // Detect for namespaces, and take just the class name
+    if (stripos($element_name, '\\'))
+    {
+      $classItems = explode('\\', $element_name);
+      $element_name = end($classItems);
+    }
+    return $element_name;
+  }
+
+  public static function element_name_plural() {
+    return self::pluralize(self::element_name());
+  }
+
+  public static function sendRequest($method, $path, $options = []) {
+    $options = array_merge(self::$default_options, $options);
+    $request = self::$client->createRequest($method, $path, $options);
+    $response = self::$client->send($request);
+    \BoletoSimples::$last_request = new \BoletoSimples\LastRequest($request, $response);
+    return $response;
+  }
+
+  public static function __callStatic($name, $arguments) {
+    self::configure();
+    return call_user_func_array("self::_" . $name, $arguments);
   }
 
   /**
@@ -60,145 +204,6 @@ class BaseResource {
     ]);
 
     self::$default_options = ['headers' => ['Content-Type'=> 'application/json'], 'exceptions' => false];
-  }
-
-  public function attributes() {
-    return $this->_attributes;
-  }
-
-  public function isNew() {
-    return !isset($this->_attributes['id']) || $this->_attributes['id'] == null;
-  }
-
-  public function isPersisted() {
-    return !$this->isNew();
-  }
-
-  public static function methodFor($action) {
-    $methods = array(
-      'create' => 'POST',
-      'update' => 'PUT',
-      'find' => 'GET',
-      'destroy' => 'DELETE',
-      'new' => 'GET'
-    );
-    return $methods[$action];
-  }
-
-  public static function statusCodeFor($action) {
-    $codes = array(
-      'create' => 201,
-      'update' => 200,
-      'find' => 200,
-      'destroy' => 200,
-      'new' => 200
-    );
-    return $codes[$action];
-  }
-
-  public static function find($id) {
-    if(!$id) {
-      throw new \Exception("Couldn't find " . get_called_class() . " without an ID.");
-    }
-    $class = get_called_class();
-    $object = new $class(['id' => $id]);
-    return $object->_find();
-  }
-
-  public static function create($attributes = array()) {
-    $class = get_called_class();
-    $object = new $class($attributes);
-    $object->save();
-    return $object;
-  }
-
-  public function save() {
-    $action = $this->isNew() ? 'create' : 'update';
-    return $this->_request($action);
-  }
-
-  public static function all($params = array()) {
-    $class = get_called_class();
-    $response = self::sendRequest('GET', $class::element_name_plural(), array_merge(self::$default_options, ['query' => $params]));
-    $collection = [];
-    if($response->getStatusCode() == 200) {
-      foreach($response->json() as $attributes) {
-        $collection[] = new $class($attributes);
-      }
-    }
-    return $collection;
-  }
-
-  /**
-   * Getter for internal object data.
-   */
-  public function __get($k) {
-    if (isset ($this->_attributes[$k])) {
-      return $this->_attributes[$k];
-    }
-    return $this->{$k};
-  }
-
-  /**
-   * Setter for internal object data.
-   */
-  public function __set($k, $v) {
-    $this->_attributes[$k] = $v;
-    $this->{$k} = $v;
-  }
-
-  public static function element_name() {
-    // Allow class-defined element name or use class name if not defined
-    $element_name = self::underscorize(get_called_class());
-
-    // Detect for namespaces, and take just the class name
-    if (stripos($element_name, '\\'))
-    {
-      $classItems = explode('\\', $element_name);
-      $element_name = end($classItems);
-    }
-    return $element_name;
-  }
-
-  public static function element_name_plural() {
-    return self::pluralize(self::element_name());
-  }
-
-  private function _find() {
-    if($this->_request('find')) {
-      return $this;
-    } else {
-      throw new \Exception("Couldn't find " . get_called_class() . " with 'id'=". $this->id);
-    }
-  }
-
-  private function _request($action) {
-    $class = get_called_class();
-    $method = self::methodFor($action);
-    $path = $this->isNew() ? $class::element_name_plural() : $class::element_name_plural() . "/". $this->_attributes['id'];
-    $options = self::$default_options;
-    if($method == 'POST') {
-      $attributes = [$class::element_name() => $this->_attributes];
-      $options = array_merge($options, ['json' => $attributes]);
-    }
-
-    $response = self::sendRequest($method, $path, $options);
-    if($response->getStatusCode() == self::statusCodeFor($action)) {
-      $this->_attributes = $response->json();
-      return true;
-    } else {
-      if(isset($response->json()['errors'])) {
-        $this->response_errors = $response->json()['errors'];
-      }
-      return false;
-    }
-  }
-
-  private static function sendRequest($method, $path, $options) {
-    $request = self::$client->createRequest($method, $path, $options);
-    $response = self::$client->send($request);
-    \BoletoSimples::$last_request = new \BoletoSimples\LastRequest($request, $response);
-    return $response;
   }
 
   /**
