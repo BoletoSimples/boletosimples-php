@@ -20,9 +20,11 @@ Crie um arquivo chamado `composer.json` com o seguinte conteúdo:
 
 ```json
 {
-	"require": {
-		"boletosimples/boletosimples": "0.0.1"
-	}
+  "minimum-stability": "beta",
+  "prefer-stable" : true,
+  "require": {
+    "boletosimples/boletosimples": "0.0.1"
+  }
 }
 ```
 
