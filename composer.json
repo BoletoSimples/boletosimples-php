@@ -28,8 +28,9 @@
     "ptrofimov/xpmock": "dev-master"
   },
 	"autoload": {
-		"psr-0": {
-			"BoletoSimples": "src/"
-		}
+		"psr-4": {
+			"BoletoSimples\\": ["src/BoletoSimples","src/BoletoSimples/Resources"]
+		},
+    "files": ["src/BoletoSimples.php"]
 	}
 }

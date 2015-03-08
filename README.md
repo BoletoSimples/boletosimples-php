@@ -38,7 +38,6 @@ Execute:
 <?php
 
 require_once 'vendor/autoload.php';
-use BoletoSimples\BoletoSimples;
 
 BoletoSimples::configure(array(
   "environment" => 'production', // default: 'sandbox'
