@@ -137,10 +137,8 @@ class BaseResource {
     $class = get_called_class();
     $response = self::sendRequest('GET', $class::element_name_plural(), ['query' => $params]);
     $collection = [];
-    if ($response->getStatusCode() == 200) {
-      foreach ($response->json() as $attributes) {
-        $collection[] = new $class($attributes);
-      }
+    foreach($response->json() as $attributes) {
+      $collection[] = new $class($attributes);
     }
     return $collection;
   }
