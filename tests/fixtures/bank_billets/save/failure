@@ -8,7 +8,7 @@
             Expect: null
             Accept-Encoding: null
             Content-Type: application/json
-            User-Agent: 'BoletoSimples PHP Client v0.0.2 (contato@boletosimples.com.br)'
+            User-Agent: 'BoletoSimples PHP Client v0.0.3 (contato@boletosimples.com.br)'
             Authorization: 'Bearer BOLETOSIMPLES_ACCESS_TOKEN'
             Accept: null
         body: '{"bank_billet":{"amount":"199,99","expire_at":"2020-01-01","description":"Cobran\u00e7a XPTO"}}'
