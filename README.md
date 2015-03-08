@@ -69,7 +69,7 @@ ENV['BOLETOSIMPLES_ACCESS_TOKEN']
 ```php
 // Criar um boleto
 $bank_billet = BoletoSimples\BankBillet::create(array (
-  'amount' => '9,01',
+  'amount' => 9.01,
   'description' => 'Despesas do contrato 0012',
   'expire_at' => '2014-01-01',
   'customer_address' => 'Rua quinhentos',
@@ -83,19 +83,47 @@ $bank_billet = BoletoSimples\BankBillet::create(array (
   'customer_person_type' => 'individual',
   'customer_phone_number' => '2112123434',
   'customer_state' => 'RJ',
-  'customer_zipcode' => '12312-123',
-  'notification_url' => 'http://example.com.br/notify'
+  'customer_zipcode' => '12312-123'
 ));
 
 // Criar um novo boleto instanciando o objeto
-$bank_billet = new BoletoSimples\BankBillet(['amount' => '199,99', 'expire_at' => '2020-01-01']);
+$bank_billet = new BoletoSimples\BankBillet(['amount' => 199.99, 'expire_at' => '2020-01-01']);
 $bank_billet->description = 'Cobrança XPTO';
 $bank_billet->save();
 
 // Mensagens de erro na criação do boleto
 $bank_billet = BoletoSimples\BankBillet::create(['amount' => 9.1]);
-$bank_billet->response_errors
-  // ["customer_person_name"=>["não pode ficar em branco"],"customer_cnpj_cpf"=>["não pode ficar em branco"],"description"=>["não pode ficar em branco"],"customer_zipcode"=>["não pode ficar em branco"],"expire_at"=>["não pode ficar em branco","não é uma data válida"]]
+print_r($bank_billet->response_errors);
+// Array
+// (
+//     [expire_at] => Array
+//         (
+//             [0] => não pode ficar em branco
+//             [1] => não é uma data válida
+//         )
+//
+//     [customer_person_name] => Array
+//         (
+//             [0] => não pode ficar em branco
+//         )
+//
+//     [customer_cnpj_cpf] => Array
+//         (
+//             [0] => não pode ficar em branco
+//         )
+//
+//     [description] => Array
+//         (
+//             [0] => não pode ficar em branco
+//         )
+//
+//     [customer_zipcode] => Array
+//         (
+//             [0] => não pode ficar em branco
+//         )
+//
+// )
+
 
 // Pegar informações de um boleto
 $bank_billet = BoletoSimples\BankBillet::find(1); // onde 1 é o id do boleto.
@@ -148,7 +176,7 @@ $customer->save();
 
 // Mensagens de erro na criação do cliente
 $customer = BoletoSimples\Customer::create(['person_name' => 'Joao da Silva', 'cnpj_cpf' => '321.315.217-07']);
-$customer->response_errors
+print_r($customer->response_errors);
   // ["cnpj_cpf"=>["já está em uso"],"zipcode"=>["não pode ficar em branco"]]
 
 // Pegar informações de um cliente
