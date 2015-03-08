@@ -17,8 +17,9 @@
     "issues": "http://github.com/BoletoSimples/boletosimples-php/issues",
     "sources": "https://github.com/BoletoSimples/boletosimples-php"
   },
-  "minimum-stability": "beta",
-	"require": {
+  "minimum-stability": "dev",
+  "prefer-stable" : true,
+  "require": {
     "guzzlehttp/guzzle": "5.*",
     "commerceguys/guzzle-oauth2-plugin": "2.*"
 	},
