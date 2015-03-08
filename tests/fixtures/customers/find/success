@@ -31,4 +31,4 @@
             Vary: Accept-Encoding
             Transfer-Encoding: chunked
             Via: '1.1 vegur'
-        body: '{"id":63,"city_name":"Rio de Janeiro","person_name":"Joao da Silva","address":"Rua quinhentos","address_complement":"Sala 4","address_number":"111","mobile_number":null,"cnpj_cpf":"321.315.217-07","email":"cliente@bom.com","neighborhood":"bairro","person_type":"individual","phone_number":"2112123434","zipcode":"12312-123","mobile_local_code":null,"state":"RJ","created_via_api":true}'
+        body: '{"id":63,"city_name":"Rio de Janeiro","person_name":"Joao da Silva","address":"Rua quinhentos","address_complement":"Sala 4","address_number":"111","mobile_number":null,"cnpj_cpf":"321.315.217-07","email":"cliente@example.com","neighborhood":"bairro","person_type":"individual","phone_number":"2112123434","zipcode":"12312-123","mobile_local_code":null,"state":"RJ","created_via_api":true}'

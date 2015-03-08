@@ -156,7 +156,7 @@ $bank_billet->cancel();
 $customer = BoletoSimples\Customer::create(array (
   'person_name' => "Joao da Silva",
   'cnpj_cpf' => "321.315.217-07",
-  'email' => "cliente@bom.com",
+  'email' => "cliente@example.com",
   'address' => "Rua quinhentos",
   'city_name' => "Rio de Janeiro",
   'state' => "RJ",
