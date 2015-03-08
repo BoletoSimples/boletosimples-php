@@ -41,7 +41,6 @@ class BaseResource {
     if (isset ($this->_attributes[$k])) {
       return $this->_attributes[$k];
     }
-    return $this->{$k};
   }
 
   /**
@@ -49,7 +48,6 @@ class BaseResource {
    */
   public function __set($k, $v) {
     $this->_attributes[$k] = $v;
-    $this->{$k} = $v;
   }
 
   public function attributes() {
@@ -137,7 +135,7 @@ class BaseResource {
     $class = get_called_class();
     $response = self::sendRequest('GET', $class::element_name_plural(), ['query' => $params]);
     $collection = [];
-    foreach($response->json() as $attributes) {
+    foreach ($response->json() as $attributes) {
       $collection[] = new $class($attributes);
     }
     return $collection;

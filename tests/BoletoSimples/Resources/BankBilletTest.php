@@ -71,6 +71,9 @@ class BankBilletTest extends PHPUnit_Framework_TestCase {
     $this->assertTrue ($bank_billet->isPersisted());
     $this->assertEquals ($bank_billet->response_errors, array());
     $this->assertEquals (array_keys($bank_billet->attributes()), ["id","expire_at","paid_at","description","status","shorten_url","customer_person_type","customer_person_name","customer_cnpj_cpf","customer_address","customer_state","customer_neighborhood","customer_zipcode","customer_address_number","customer_address_complement","customer_phone_number","customer_email","notification_url","send_email_on_creation","created_via_api","customer_city_name","paid_amount","amount"]);
+    $this->assertEquals ($bank_billet->amount, 9.01);
+    $this->assertEquals ($bank_billet->description, 'Despesas do contrato 0012');
+    $this->assertEquals ($bank_billet->expire_at, '2014-01-01');
   }
 
   /**
