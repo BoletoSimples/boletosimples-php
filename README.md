@@ -171,7 +171,7 @@ BoletoSimples::$last_request->links['last'] // url da última página
 
 ```php
 // Listar todas as transações
-$transactions = BoletoSimples\Transaction::all;
+$transactions = BoletoSimples\Transaction::all();
 foreach($transactions as $transaction) {
   print_r($transaction->attributes());
 }
