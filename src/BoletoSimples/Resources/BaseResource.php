@@ -66,9 +66,9 @@ class BaseResource {
 
   public function path($action = null) {
     $class = get_called_class();
-    $path = $this->isNew() ? $class::element_name_plural() : $class::element_name_plural() . "/". $this->_attributes['id'];
-    if($action) {
-      $path .= '/' . $action;
+    $path = $this->isNew() ? $class::element_name_plural() : $class::element_name_plural()."/".$this->_attributes['id'];
+    if ($action) {
+      $path .= '/'.$action;
     }
     return $path;
   }
@@ -80,11 +80,11 @@ class BaseResource {
 
   public function parseResponse($response) {
     $status = $response->getStatusCode();
-    if($status >= 200 && $status <= 299) {
+    if ($status >= 200 && $status <= 299) {
       $this->_attributes = $response->json();
       return true;
     } else {
-      if(isset($response->json()['errors'])) {
+      if (isset($response->json()['errors'])) {
         $this->response_errors = $response->json()['errors'];
       }
       return false;
@@ -96,7 +96,7 @@ class BaseResource {
     $method = self::methodFor($action);
     $path = $this->path();
     $options = [];
-    if($method == 'POST') {
+    if ($method == 'POST') {
       $attributes = [$class::element_name() => $this->_attributes];
       $options = ['json' => $attributes];
     }
@@ -117,8 +117,8 @@ class BaseResource {
   }
 
   public static function _find($id) {
-    if(!$id) {
-      throw new \Exception("Couldn't find " . get_called_class() . " without an ID.");
+    if (!$id) {
+      throw new \Exception("Couldn't find ".get_called_class()." without an ID.");
     }
     $class = get_called_class();
     $object = new $class(['id' => $id]);
@@ -137,8 +137,8 @@ class BaseResource {
     $class = get_called_class();
     $response = self::sendRequest('GET', $class::element_name_plural(), ['query' => $params]);
     $collection = [];
-    if($response->getStatusCode() == 200) {
-      foreach($response->json() as $attributes) {
+    if ($response->getStatusCode() == 200) {
+      foreach ($response->json() as $attributes) {
         $collection[] = new $class($attributes);
       }
     }
@@ -167,7 +167,7 @@ class BaseResource {
     $request = self::$client->createRequest($method, $path, $options);
     $response = self::$client->send($request);
     \BoletoSimples::$last_request = new LastRequest($request, $response);
-    if($response->getStatusCode() >= 400 && $response->getStatusCode() <= 599) {
+    if ($response->getStatusCode() >= 400 && $response->getStatusCode() <= 599) {
       new ResponseError($response);
     }
     return $response;
@@ -175,7 +175,7 @@ class BaseResource {
 
   public static function __callStatic($name, $arguments) {
     self::configure();
-    return call_user_func_array("self::_" . $name, $arguments);
+    return call_user_func_array("self::_".$name, $arguments);
   }
 
   /**
@@ -224,14 +224,14 @@ class BaseResource {
   /**
    * Undescorize the element name.
    */
-  private static function underscorize($word){
+  private static function underscorize($word) {
     $word = preg_replace('/[\'"]/', '', $word);
     $word = preg_replace('/[^a-zA-Z0-9]+/', '_', $word);
     $word = preg_replace('/([A-Z\d]+)([A-Z][a-z])/', '\1_\2', $word);
     $word = preg_replace('/([a-z\d])([A-Z])/', '\1_\2', $word);
     $word = trim($word, '_');
     $word = strtolower($word);
-    $word = str_replace('boleto_simples_','', $word);
+    $word = str_replace('boleto_simples_', '', $word);
     return $word;
   }
 

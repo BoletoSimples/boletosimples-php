@@ -48,11 +48,11 @@ class LastRequest {
 
   private function getLinks($response) {
     $link_header = $response->getHeader('Link');
-    if($link_header == null) {
+    if ($link_header == null) {
       return [];
     }
     $links = [];
-    foreach(explode(', ',$link_header) as $link) {
+    foreach (explode(', ', $link_header) as $link) {
       preg_match('/rel=\"(.*)\"/', $link, $matches);
       $key = $matches[1];
       preg_match('/\<(.*)\>/', $link, $matches);

@@ -15,7 +15,7 @@ class ResponseError extends \Exception {
     $this->response = $response;
 
     $json = $response->json();
-    if(isset($json['error'])) {
+    if (isset($json['error'])) {
       $this->message = $json['error'];
       throw $this;
     }
