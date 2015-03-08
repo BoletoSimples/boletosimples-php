@@ -1,14 +1,18 @@
 # Boleto Simples PHP
 
+[![Lates Stable Version](https://img.shields.io/packagist/v/boletosimples/boletosimples.svg)][packagist]
 [![Build Status](http://img.shields.io/travis/BoletoSimples/boletosimples-php.svg)][travis]
 [![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/BoletoSimples/boletosimples-php.svg)][scrutinizer]
 [![Scrutinizer Code Coverage](https://img.shields.io/scrutinizer/coverage/g/BoletoSimples/boletosimples-php.svg)][scrutinizer_coverage]
 [![Dependency Status](https://www.versioneye.com/user/projects/54f3d5904f31083e1b000838/badge.svg?style=flat)][versioneye]
+[![License](https://img.shields.io/packagist/l/boletosimples/boletosimples.svg)][packagist_license]
 
+[packagist]: https://packagist.org/packages/boletosimples/boletosimples
 [travis]: http://travis-ci.org/BoletoSimples/boletosimples-php
 [scrutinizer]: https://scrutinizer-ci.com/g/BoletoSimples/boletosimples-php/
 [scrutinizer_coverage]: https://scrutinizer-ci.com/g/BoletoSimples/boletosimples-php/
 [versioneye]: https://www.versioneye.com/user/projects/54f3d5904f31083e1b000838
+[packagist_license]: https://github.com/BoletoSimples/boletosimples-php/blob/master/LICENSE
 
 Essa biblioteca é um conjunto de classes em PHP para acessar informações da sua conta no [Boleto Simples](http://boletosimples.com.br) através da [API](http://api.boletosimples.com.br).
 
