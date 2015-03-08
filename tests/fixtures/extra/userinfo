@@ -1,0 +1,34 @@
+
+-
+    request:
+        method: GET
+        url: 'https://sandbox.boletosimples.com.br/api/v1/userinfo'
+        headers:
+            Host: sandbox.boletosimples.com.br
+            Accept-Encoding: null
+            Content-Type: application/json
+            User-Agent: 'BoletoSimples PHP Client v0.0.2 (contato@boletosimples.com.br)'
+            Authorization: 'Bearer BOLETOSIMPLES_ACCESS_TOKEN'
+            Accept: null
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Server: Cowboy
+            Connection: keep-alive
+            Strict-Transport-Security: max-age=2592000
+            Content-Type: 'application/json; charset=utf-8'
+            X-Ratelimit-Limit: '500'
+            X-Ratelimit-Remaining: '496'
+            Etag: 'W/"2d2f54e118a16fc72383e7533ebcfeb1"'
+            Cache-Control: 'must-revalidate, private, max-age=0'
+            X-Request-Id: f3a2b980-ba43-4b51-a61f-81b5f5159c29
+            X-Runtime: '0.072303'
+            Date: 'Sun, 08 Mar 2015 18:14:55 GMT'
+            X-Rack-Cache: miss
+            Vary: Accept-Encoding
+            Transfer-Encoding: chunked
+            Via: '1.1 vegur'
+        body: '{"id":53,"login_url":"https://sandbox.boletosimples.com.br/welcome?email=user1%40example.com\u0026token=xxx","email":"user1@example.com","account_type":null,"first_name":null,"middle_name":null,"last_name":null,"full_name":null,"cpf":null,"date_of_birth":null,"mother_name":null,"father_name":null,"account_level":2,"phone_number":null,"address_street_name":null,"address_number":null,"address_complement":null,"address_neighborhood":null,"address_postal_code":null,"address_city_name":null,"address_state":null,"business_name":null,"business_cnpj":null,"business_legal_name":null}'

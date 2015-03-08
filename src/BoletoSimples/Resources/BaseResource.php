@@ -114,7 +114,7 @@ class BaseResource {
     return $methods[$action];
   }
 
-  public static function _find($id) {
+  private static function _find($id) {
     if (!$id) {
       throw new \Exception("Couldn't find ".get_called_class()." without an ID.");
     }
@@ -124,14 +124,14 @@ class BaseResource {
     return $object;
   }
 
-  public static function _create($attributes = array()) {
+  private static function _create($attributes = array()) {
     $class = get_called_class();
     $object = new $class($attributes);
     $object->save();
     return $object;
   }
 
-  public static function _all($params = array()) {
+  private static function _all($params = array()) {
     $class = get_called_class();
     $response = self::sendRequest('GET', $class::element_name_plural(), ['query' => $params]);
     $collection = [];
@@ -141,15 +141,7 @@ class BaseResource {
     return $collection;
   }
 
-  public static function element_name() {
-    return Util::underscorize(get_called_class());
-  }
-
-  public static function element_name_plural() {
-    return Util::pluralize(self::element_name());
-  }
-
-  public static function sendRequest($method, $path, $options = []) {
+  private static function _sendRequest($method, $path, $options = []) {
     $options = array_merge(self::$default_options, $options);
     $request = self::$client->createRequest($method, $path, $options);
     $response = self::$client->send($request);
@@ -158,6 +150,14 @@ class BaseResource {
       new ResponseError($response);
     }
     return $response;
+  }
+
+  public static function element_name() {
+    return Util::underscorize(get_called_class());
+  }
+
+  public static function element_name_plural() {
+    return Util::pluralize(self::element_name());
   }
 
   public static function __callStatic($name, $arguments) {

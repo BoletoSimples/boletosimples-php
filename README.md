@@ -177,6 +177,14 @@ foreach($transactions as $transaction) {
 }
 ```
 
+### Extras
+
+```php
+// Dados do usuário logado
+$userinfo = BoletoSimples\Extra::userinfo();
+```
+
+
 ## Desenvolvendo
 
 Instale as dependências
