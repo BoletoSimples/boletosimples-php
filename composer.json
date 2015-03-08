@@ -20,13 +20,13 @@
   },
 	"require": {
     "guzzlehttp/guzzle": "5.2.0",
-    "commerceguys/guzzle-oauth2-plugin": "dev-master",
-    "ptrofimov/xpmock": "dev-master"
+    "commerceguys/guzzle-oauth2-plugin": "dev-master"
 	},
   "require-dev": {
     "phpunit/phpunit": "4.5.*",
     "php-vcr/php-vcr": "~1.2",
-    "php-vcr/phpunit-testlistener-vcr": "*"
+    "php-vcr/phpunit-testlistener-vcr": "*",
+    "ptrofimov/xpmock": "dev-master"
   },
 	"autoload": {
 		"psr-0": {
