@@ -147,9 +147,9 @@ class CustomerTest extends PHPUnit_Framework_TestCase {
    * @vcr customers/update/success
    */
   public function testUpdateSuccess() {
-    self::$customer_id = 63;
     $customer = BoletoSimples\Customer::find(self::$customer_id);
     $this->assertTrue($customer->save());
+    $this->assertEquals($customer->person_name, 'Joao da Silva');
   }
 
 }

@@ -79,7 +79,9 @@ class BaseResource {
   public function parseResponse($response) {
     $status = $response->getStatusCode();
     if ($status >= 200 && $status <= 299) {
-      $this->_attributes = $response->json();
+      if($response->json()) {
+        $this->_attributes = $response->json();
+      }
       return true;
     } else {
       if (isset($response->json()['errors'])) {
