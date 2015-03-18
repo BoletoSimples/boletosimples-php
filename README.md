@@ -24,10 +24,10 @@ Crie um arquivo chamado `composer.json` com o seguinte conteúdo:
 
 ```json
 {
-  "minimum-stability": "beta",
+  "minimum-stability": "dev",
   "prefer-stable" : true,
   "require": {
-    "boletosimples/boletosimples": "0.0.3"
+    "boletosimples/boletosimples": "dev-master"
   }
 }
 ```
