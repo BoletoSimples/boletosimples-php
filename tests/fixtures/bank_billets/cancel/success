@@ -7,7 +7,7 @@
             Host: sandbox.boletosimples.com.br
             Accept-Encoding: null
             Content-Type: application/json
-            User-Agent: 'BoletoSimples PHP Client v0.0.4 (contato@boletosimples.com.br)'
+            User-Agent: 'BoletoSimples PHP Client v0.0.5 (contato@boletosimples.com.br)'
             Authorization: 'Bearer BOLETOSIMPLES_ACCESS_TOKEN'
             Accept: null
     response:
@@ -41,7 +41,7 @@
             Content-Length: '0'
             Accept-Encoding: null
             Content-Type: application/json
-            User-Agent: 'BoletoSimples PHP Client v0.0.4 (contato@boletosimples.com.br)'
+            User-Agent: 'BoletoSimples PHP Client v0.0.5 (contato@boletosimples.com.br)'
             Authorization: 'Bearer BOLETOSIMPLES_ACCESS_TOKEN'
             Accept: null
     response:
