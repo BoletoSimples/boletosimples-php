@@ -8,7 +8,7 @@
             Expect: null
             Accept-Encoding: null
             Content-Type: application/json
-            User-Agent: 'BoletoSimples PHP Client v0.0.3 (contato@boletosimples.com.br)'
+            User-Agent: 'BoletoSimples PHP Client v0.0.4 (contato@boletosimples.com.br)'
             Authorization: 'Bearer BOLETOSIMPLES_ACCESS_TOKEN'
             Accept: null
         body: '{"customer":{"cnpj_cpf":"828.788.171-41","person_name":"Joao da Silva","zipcode":"12312-123"}}'
