@@ -142,4 +142,14 @@ class CustomerTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals(BoletoSimples::$last_request->links['last'], 'https://sandbox.boletosimples.com.br/api/v1/customers?page=2&per_page=2');
     $this->assertEquals(BoletoSimples::$last_request->links['next'], 'https://sandbox.boletosimples.com.br/api/v1/customers?page=2&per_page=2');
   }
+
+  /**
+   * @vcr customers/update/success
+   */
+  public function testUpdateSuccess() {
+    self::$customer_id = 63;
+    $customer = BoletoSimples\Customer::find(self::$customer_id);
+    $this->assertTrue($customer->save());
+  }
+
 }

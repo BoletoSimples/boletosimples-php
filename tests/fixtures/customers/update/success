@@ -1,0 +1,66 @@
+
+-
+    request:
+        method: GET
+        url: 'https://sandbox.boletosimples.com.br/api/v1/customers/63'
+        headers:
+            Host: sandbox.boletosimples.com.br
+            Accept-Encoding: null
+            Content-Type: application/json
+            User-Agent: 'BoletoSimples PHP Client v0.0.3 (contato@boletosimples.com.br)'
+            Authorization: 'Bearer BOLETOSIMPLES_ACCESS_TOKEN'
+            Accept: null
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Server: Cowboy
+            Connection: keep-alive
+            Strict-Transport-Security: max-age=2592000
+            Content-Type: 'application/json; charset=utf-8'
+            X-Ratelimit-Limit: '500'
+            X-Ratelimit-Remaining: '476'
+            Etag: 'W/"052b575044d3b576151f1b175cf6048f"'
+            Cache-Control: 'must-revalidate, private, max-age=0'
+            X-Request-Id: 9eb02949-c2c7-4032-8dd5-c9d0da942aab
+            X-Runtime: '0.089083'
+            Date: 'Wed, 18 Mar 2015 02:42:10 GMT'
+            X-Rack-Cache: miss
+            Vary: Accept-Encoding
+            Transfer-Encoding: chunked
+            Via: '1.1 vegur'
+        body: '{"id":63,"city_name":"Rio de Janeiro","person_name":"Joao da Silva","address":"Rua quinhentos","address_complement":"Sala 4","address_number":"111","mobile_number":null,"cnpj_cpf":"321.315.217-07","email":"cliente@bom.com","neighborhood":"bairro","person_type":"individual","phone_number":"2112123434","zipcode":"12312-123","mobile_local_code":null,"state":"RJ","created_via_api":true}'
+-
+    request:
+        method: PUT
+        url: 'https://sandbox.boletosimples.com.br/api/v1/customers/63'
+        headers:
+            Host: sandbox.boletosimples.com.br
+            Expect: null
+            Accept-Encoding: null
+            Content-Type: application/json
+            User-Agent: 'BoletoSimples PHP Client v0.0.3 (contato@boletosimples.com.br)'
+            Authorization: 'Bearer BOLETOSIMPLES_ACCESS_TOKEN'
+            Accept: null
+        body: '{"customer":{"id":63,"city_name":"Rio de Janeiro","person_name":"Joao da Silva","address":"Rua quinhentos","address_complement":"Sala 4","address_number":"111","mobile_number":null,"cnpj_cpf":"321.315.217-07","email":"cliente@bom.com","neighborhood":"bairro","person_type":"individual","phone_number":"2112123434","zipcode":"12312-123","mobile_local_code":null,"state":"RJ","created_via_api":true}}'
+    response:
+        status:
+            http_version: '1.1'
+            code: '204'
+            message: 'No Content'
+        headers:
+            Server: Cowboy
+            Content-Length: '0'
+            Connection: keep-alive
+            Strict-Transport-Security: max-age=2592000
+            Location: 'https://sandbox.boletosimples.com.br/api/v1/customers/63'
+            X-Ratelimit-Limit: '500'
+            X-Ratelimit-Remaining: '475'
+            Cache-Control: no-cache
+            X-Request-Id: 2af4fae3-caab-4fd9-b021-1ef39f8d4525
+            X-Runtime: '0.082013'
+            Date: 'Wed, 18 Mar 2015 02:42:12 GMT'
+            X-Rack-Cache: 'invalidate, pass'
+            Via: '1.1 vegur'

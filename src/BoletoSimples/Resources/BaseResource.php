@@ -94,7 +94,7 @@ class BaseResource {
     $method = self::methodFor($action);
     $path = $this->path();
     $options = [];
-    if ($method == 'POST') {
+    if ($action == 'create' || $action == 'update') {
       $attributes = [$class::element_name() => $this->_attributes];
       $options = ['json' => $attributes];
     }

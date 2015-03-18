@@ -154,7 +154,6 @@ class BankBilletTest extends PHPUnit_Framework_TestCase {
 
   /**
    * @vcr bank_billets/cancel/success
-   * @group now
    */
   public function testCancelSuccess() {
     $bank_billet = BoletoSimples\BankBillet::find(self::$bank_billet_id);
