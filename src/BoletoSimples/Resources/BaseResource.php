@@ -97,7 +97,7 @@ class BaseResource {
     $path = $this->path();
     $options = [];
     if ($action == 'create' || $action == 'update') {
-      $attributes = [$class::element_name() => $this->_attributes];
+      $attributes = [$class::root_element_name($class::element_name()) => $this->_attributes];
       $options = ['json' => $attributes];
     }
 
@@ -160,6 +160,12 @@ class BaseResource {
 
   public static function element_name_plural() {
     return Util::pluralize(self::element_name());
+  }
+
+  public static function root_element_name($word) {
+    $word = explode("/",$word);
+    $word = end($word);
+    return $word;
   }
 
   public static function __callStatic($name, $arguments) {

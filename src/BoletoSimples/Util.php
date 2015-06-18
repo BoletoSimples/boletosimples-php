@@ -29,6 +29,7 @@ class Util {
     $word = trim($word, '_');
     $word = strtolower($word);
     $word = str_replace('boleto_simples_', '', $word);
+    $word = str_replace('partner_', 'partner/', $word);
     return $word;
   }
 }
