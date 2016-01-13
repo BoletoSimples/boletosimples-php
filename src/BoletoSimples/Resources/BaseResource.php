@@ -184,6 +184,7 @@ class BaseResource {
         ],
         'auth' => 'oauth2',
         'subscribers' => [$oauth2],
+        'verify' => false,
       ]
     ]);
 
