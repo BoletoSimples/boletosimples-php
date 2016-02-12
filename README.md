@@ -222,7 +222,7 @@ $userinfo = BoletoSimples\Extra::userinfo();
 // Enviar uma remessa
 //Caminho para o seu arquivo
 $path = realpath(dirname(__FILE__) . '/cnab.txt');
-$customer = BoletoSimples\Remittance::create(array (
+$remittance = BoletoSimples\Remittance::create(array (
   'content' => file_get_contents($path),
   'bank_billet_account_id' => "1"
 ));
