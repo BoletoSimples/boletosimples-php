@@ -216,6 +216,18 @@ foreach($transactions as $transaction) {
 $userinfo = BoletoSimples\Extra::userinfo();
 ```
 
+### Remessas
+
+```php
+// Enviar uma remessa
+//Caminho para o seu arquivo
+$path = realpath(dirname(__FILE__) . '/cnab.txt');
+$customer = BoletoSimples\Remittance::create(array (
+  'content' => file_get_contents($path),
+  'bank_billet_account_id' => "1"
+));
+```
+
 
 ## Desenvolvendo
 
