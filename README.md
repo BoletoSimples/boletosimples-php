@@ -219,15 +219,22 @@ $userinfo = BoletoSimples\Extra::userinfo();
 ### Remessas
 
 ```php
-// Enviar uma remessa
-//Caminho para o seu arquivo
-$path = realpath(dirname(__FILE__) . '/cnab.txt');
+// Criar uma remessa
 $remittance = BoletoSimples\Remittance::create(array (
-  'content' => file_get_contents($path),
   'bank_billet_account_id' => "1"
 ));
 ```
 
+### Retornos
+
+```php
+// Enviar um retorno
+//Caminho para o seu arquivo
+$path = realpath(dirname(__FILE__) . '/cnab.txt');
+$discharge = BoletoSimples\Discharge::create(array (
+  'content' => file_get_contents($path)
+));
+```
 
 ## Desenvolvendo
 
