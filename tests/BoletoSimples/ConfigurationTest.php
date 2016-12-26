@@ -16,7 +16,7 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase {
 	}
   public function testUserAgent() {
     $this->subject = new BoletoSimples\Configuration();
-    $this->assertEquals ($this->subject->userAgent(), "BoletoSimples PHP Client v0.0.5 (contato@boletosimples.com.br)");
+    $this->assertEquals ($this->subject->userAgent(), "BoletoSimples PHP Client v0.0.8 (contato@boletosimples.com.br)");
   }
   public function testEnvironmentVariables() {
     putenv('BOLETOSIMPLES_ENV=production');
