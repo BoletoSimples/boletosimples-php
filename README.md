@@ -18,6 +18,10 @@ Biblioteca PHP para acessar informações do [Boleto Simples](http://boletosimpl
 
 ## Instalação
 
+### Requerimentos
+
+PHP 5.4 ou superior
+
 ### Usando [Composer](https://getcomposer.org/)
 
 Crie um arquivo chamado `composer.json` com o seguinte conteúdo:
