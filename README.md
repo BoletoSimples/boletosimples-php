@@ -18,7 +18,7 @@ Biblioteca PHP para acessar informações do [Boleto Simples](http://boletosimpl
 
 ## Instalação
 
-### Requerimentos
+### Requisitos
 
 PHP 5.4 ou superior
 
