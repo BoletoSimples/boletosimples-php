@@ -19,7 +19,7 @@
   },
   "require": {
     "guzzlehttp/guzzle": "5.*",
-    "commerceguys/guzzle-oauth2-plugin": "2.*@beta"
+    "commerceguys/guzzle-oauth2-plugin": "2.*"
 	},
   "require-dev": {
     "phpunit/phpunit": "4.5.*",
