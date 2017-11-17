@@ -183,9 +183,9 @@ class BaseResource {
           'User-Agent' => $config->userAgent()
         ],
         'auth' => 'oauth2',
-        'subscribers' => [$oauth2],
-        'verify' => false,
-      ]
+        'subscribers' => [$oauth2]
+      ],
+      'verify' => false
     ]);
 
     self::$default_options = ['headers' => ['Content-Type'=> 'application/json'], 'exceptions' => false];
