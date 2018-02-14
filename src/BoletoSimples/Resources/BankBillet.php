@@ -13,6 +13,11 @@ class BankBillet extends BaseResource {
     return $this->parseResponse($response);
   }
 
+  public function pay($params = array()) {
+    $response = self::sendRequest('PUT', $this->path('pay'), ['query' => $params]);
+    return $this->parseResponse($response);
+  }
+
   public static function cnpj_cpf($cnpj_cpf) {
     if (!$cnpj_cpf) {
       throw new \Exception("Couldn't find ".get_called_class()." without an cnpj or cpf.");
