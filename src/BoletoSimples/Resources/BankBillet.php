@@ -14,7 +14,7 @@ class BankBillet extends BaseResource {
   }
 
   public function pay($params = array()) {
-    $response = self::sendRequest('PUT', $this->path('pay'), ['query' => $params]);
+    $response = self::sendRequest('PUT', $this->path('pay'), ['json' => $params]);
     return $this->parseResponse($response);
   }
 
