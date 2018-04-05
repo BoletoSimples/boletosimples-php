@@ -53,4 +53,9 @@ class BankBillet extends BaseResource {
     }
     return $collection;
   }
+
+  public static function bulk($params) {
+    $response = self::sendRequest('POST', 'bank_billets/bulk', ['body' => json_encode(['bank_billets' => $params])]);
+    return $response->json();
+  }
 }
