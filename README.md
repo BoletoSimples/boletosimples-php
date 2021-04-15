@@ -27,7 +27,7 @@ Crie um arquivo chamado `composer.json` com o seguinte conteúdo:
 ```json
 {
   "minimum-stability": "dev",
-  "prefer-stable" : true,
+  "prefer-stable": true,
   "require": {
     "boletosimples/boletosimples": "dev-master"
   }
@@ -47,7 +47,7 @@ require_once 'vendor/autoload.php';
 
 BoletoSimples::configure(array(
   "environment" => 'production', // default: 'sandbox'
-  "access_token" => 'access-token'
+  "api_token" => 'api-token'
 ));
 
 ?>
@@ -59,9 +59,8 @@ Você também pode configurar as variáveis de ambiente a seguir e não será ne
 
 ```bash
 ENV['BOLETOSIMPLES_ENV']
-ENV['BOLETOSIMPLES_APP_ID']
-ENV['BOLETOSIMPLES_APP_SECRET']
-ENV['BOLETOSIMPLES_ACCESS_TOKEN']
+ENV['BOLETOSIMPLES_USER_AGENT']
+ENV['BOLETOSIMPLES_API_TOKEN']
 ```
 
 ## Exemplos

@@ -1,6 +1,7 @@
 <?php
+use PHPUnit\Framework\TestCase;
 
-class ResponseErrorTest extends PHPUnit_Framework_TestCase {
+class ResponseErrorTest extends TestCase {
   use \Xpmock\TestCaseTrait;
 
   /**

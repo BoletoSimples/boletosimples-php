@@ -1,6 +1,7 @@
 <?php
+use PHPUnit\Framework\TestCase;
 
-class BankBilletTest extends PHPUnit_Framework_TestCase {
+class BankBilletTest extends TestCase {
   private static $bank_billet_id;
   /**
    * @before
@@ -132,7 +133,7 @@ class BankBilletTest extends PHPUnit_Framework_TestCase {
    * @expectedExceptionMessage Você precisa se logar ou registrar antes de prosseguir.
    */
   public function testFindUnauthenticated() {
-    BoletoSimples::configure(['environment' => 'sandbox', 'access_token' => 'invalid']);
+    BoletoSimples::configure(['environment' => 'sandbox', 'api_token' => 'invalid']);
     $bank_billet = BoletoSimples\BankBillet::find(1);
   }
 

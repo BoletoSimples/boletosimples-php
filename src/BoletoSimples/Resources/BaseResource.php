@@ -3,7 +3,6 @@
 namespace BoletoSimples;
 
 use GuzzleHttp\Client;
-use CommerceGuys\Guzzle\Oauth2\Oauth2Subscriber;
 
 class BaseResource {
   /**
@@ -167,23 +166,17 @@ class BaseResource {
     return call_user_func_array("self::_".$name, $arguments);
   }
 
-  /**
-   * Configure the GuzzleHttp\Client with default options.
-   */
   public static function configure() {
     $config = \BoletoSimples::$configuration;
-
-    $oauth2 = new Oauth2Subscriber();
-    $oauth2->setAccessToken($config->access_token);
 
     self::$client = new Client([
       'base_url' => $config->baseUri(),
       'defaults' => [
         'headers' => [
-          'User-Agent' => $config->userAgent()
+          'User-Agent' => $config->userAgent(),
+          'Accept'     => 'application/json',
+          'Authorization' => 'Bearer ' . $config->api_token
         ],
-        'auth' => 'oauth2',
-        'subscribers' => [$oauth2]
       ],
       'verify' => false
     ]);
