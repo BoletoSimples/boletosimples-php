@@ -71,10 +71,14 @@ class BaseResource {
     return $path;
   }
 
-  public function save() {
-    $action = $this->isNew() ? 'create' : 'update';
-    return $this->_request($action);
-  }
+    public function save($action = null)
+    {
+        if (!isset($action)) {
+            $action = $this->isNew() ? 'create' : 'update';
+        }
+
+        return $this->_request($action);
+    }
 
   public function parseResponse($response) {
     $status = $response->getStatusCode();
@@ -96,7 +100,7 @@ class BaseResource {
     $method = self::methodFor($action);
     $path = $this->path();
     $options = [];
-    if ($action == 'create' || $action == 'update') {
+    if (in_array($action, ['create', 'update'])) {
       $attributes = [$class::element_name() => $this->_attributes];
       $options = ['json' => $attributes];
     }
@@ -111,7 +115,8 @@ class BaseResource {
       'update' => 'PUT',
       'find' => 'GET',
       'destroy' => 'DELETE',
-      'new' => 'GET'
+      'new' => 'GET',
+      'patch' => 'PATCH'
     );
     return $methods[$action];
   }
@@ -131,6 +136,30 @@ class BaseResource {
     $object = new $class($attributes);
     $object->save();
     return $object;
+  }
+
+  public static function update(array $attributes)
+  {
+      if (!isset($attributes['id'])) {
+          throw new \InvalidArgumentException('Id is required for this action');
+      }
+
+      $class = get_called_class();
+      $object = new $class($attributes);
+      $object->save('patch');
+      return $obj;
+  }
+
+  public static function replace(array $attributes)
+  {
+      if (!isset($attributes['id'])) {
+          throw new \InvalidArgumentException('Id is required for this action');
+      }
+
+      $class = get_called_class();
+      $object = new $class($attributes);
+      $object->save('update');
+      return $obj;
   }
 
   private static function _all($params = array()) {
