@@ -5,28 +5,25 @@ namespace BoletoSimples;
 class Configuration {
   private $environments_uri = array('sandbox' => 'https://sandbox.boletosimples.com.br/api/v1/', 'production' => 'https://boletosimples.com.br/api/v1/');
   public $environment = null;
-  public $application_id = null;
-  public $application_secret = null;
-  public $access_token = null;
+  public $api_token = null;
+  public $user_agent = null;
 
   public function __construct($params = array()) {
     $default_environment = getenv('BOLETOSIMPLES_ENV') ? getenv('BOLETOSIMPLES_ENV') : 'sandbox';
-    $default_application_id = getenv('BOLETOSIMPLES_APP_ID') ? getenv('BOLETOSIMPLES_APP_ID') : null;
-    $default_application_secret = getenv('BOLETOSIMPLES_APP_SECRET') ? getenv('BOLETOSIMPLES_APP_SECRET') : null;
-    $default_access_token = getenv('BOLETOSIMPLES_ACCESS_TOKEN') ? getenv('BOLETOSIMPLES_ACCESS_TOKEN') : null;
+    $default_user_agent = getenv('BOLETOSIMPLES_USER_AGENT') ? getenv('BOLETOSIMPLES_USER_AGENT') : null;
+    $default_api_token = getenv('BOLETOSIMPLES_API_TOKEN') ? getenv('BOLETOSIMPLES_API_TOKEN') : null;
 
     $this->environment = isset($params['environment']) ? $params['environment'] : $default_environment;
-    $this->application_id = isset($params['application_id']) ? $params['application_id'] : $default_application_id;
-    $this->application_secret = isset($params['application_secret']) ? $params['application_secret'] : $default_application_secret;
-    $this->access_token = isset($params['access_token']) ? $params['access_token'] : $default_access_token;
+    $this->user_agent = isset($params['user_agent']) ? $params['user_agent'] : $default_user_agent;
+    $this->api_token = isset($params['api_token']) ? $params['api_token'] : $default_api_token;
   }
 
   public function userAgent() {
-    return "BoletoSimples PHP Client v".\BoletoSimples::VERSION." (contato@boletosimples.com.br)";
+    return $this->user_agent != null;
   }
 
   public function hasAccessToken() {
-    return $this->access_token != null;
+    return $this->api_token != null;
   }
 
   public function baseUri() {

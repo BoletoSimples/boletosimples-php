@@ -1,15 +1,14 @@
 <?php
+use PHPUnit\Framework\TestCase;
 
-class VcrSecurityListener implements \PHPUnit_Framework_TestListener
+class VcrSecurityListener implements PHPUnit\Framework\TestListener
 {
     private $dataChanged = null;
 
     private function sensitiveData() {
       return [
-        'BOLETOSIMPLES_APP_ID' => getenv('BOLETOSIMPLES_APP_ID'),
-        'BOLETOSIMPLES_APP_SECRET' => getenv('BOLETOSIMPLES_APP_SECRET'),
-        'BOLETOSIMPLES_ACCESS_TOKEN' => getenv('BOLETOSIMPLES_ACCESS_TOKEN'),
-        'BOLETOSIMPLES_CLIENT_CREDENTIALS_TOKEN' => getenv('BOLETOSIMPLES_CLIENT_CREDENTIALS_TOKEN')
+        'BOLETOSIMPLES_USER_AGENT' => getenv('BOLETOSIMPLES_USER_AGENT'),
+        'BOLETOSIMPLES_API_TOKEN' => getenv('BOLETOSIMPLES_API_TOKEN')
       ];
     }
 

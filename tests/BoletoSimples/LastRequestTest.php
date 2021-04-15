@@ -1,6 +1,7 @@
 <?php
+use PHPUnit\Framework\TestCase;
 
-class LastRequestTest extends PHPUnit_Framework_TestCase {
+class LastRequestTest extends TestCase {
   use \Xpmock\TestCaseTrait;
 
 	public function testConstructor () {

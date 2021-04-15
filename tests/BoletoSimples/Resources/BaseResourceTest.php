@@ -1,10 +1,11 @@
 <?php
+use PHPUnit\Framework\TestCase;
 
 class ExampleResource extends BoletoSimples\BaseResource {
   public $property = 'value';
 }
 
-class BaseResourceTest extends PHPUnit_Framework_TestCase {
+class BaseResourceTest extends TestCase {
   public function testConstruct () {
     $subject = new ExampleResource(array ('foo' => 'bar'));
 
